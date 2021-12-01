@@ -3,8 +3,6 @@
 simply a module documentation line.
 """
 
-matrix_shape = __import__('2-size_me_please').matrix_shape
-
 
 def add_matrices2D(mat1, mat2):
     """
@@ -15,6 +13,13 @@ def add_matrices2D(mat1, mat2):
     are of the same type/shape.
     - You must return a new matrix
     - If mat1 and mat2 are not the same shape, return None
+    """
+
+    """
+    Avoiding using function matrix_shape under the module 2-size_me_please,
+    as it cannot handle empty dimension: exp:
+    mat1 = [[], [3]]
+    mat2 = [[], [7]]
     """
     if len(mat1) != len(mat2) or len(mat1[0]) != len(mat2[0]):
         return None
