@@ -14,6 +14,9 @@ def cat_matrices2D(mat1, mat2, axis=0):
     - If the two matrices cannot be concatenated, return None
     """
     if axis:
-        return [x + y for x, y in zip(mat1, mat2)]
+        if len(mat1) == len(mat2):
+            return [x + y for x, y in zip(mat1, mat2)]
     else:
-        return mat1 + mat2
+        if len(mat1[0]) == len(mat2[0]):
+            return mat1 + mat2
+    return None
