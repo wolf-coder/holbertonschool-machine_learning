@@ -16,7 +16,7 @@ def add_matrices2D(mat1, mat2):
     - You must return a new matrix
     - If mat1 and mat2 are not the same shape, return None
     """
-    if matrix_shape(mat1) != matrix_shape(mat2):
+    if len(mat1) != len(mat2) or len(mat1[0]) != len(mat2[0]):
         return None
     else:
         return [[x + y for x, y in zip(a, b)] for a, b in zip(mat1, mat2)]
