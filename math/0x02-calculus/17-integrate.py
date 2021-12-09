@@ -1,5 +1,5 @@
 """
-Integral
+Integral Calculation
 """
 
 
