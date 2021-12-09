@@ -8,7 +8,7 @@ def summation_i_squared(n):
     """
     function that calculate the sequence sigma (i^2 ) from 1 to n
     """
-    if type(n) is not int:
+    if type(n) is not int or n < 1:
         return None
     if n == 1:
         return 1
