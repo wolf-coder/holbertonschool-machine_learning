@@ -5,22 +5,23 @@ Integral
 
 def poly_integral(poly, C=0):
     """
-    calculates the integral of a polynomial:
+    Calculate of a polynomial integral
     """
-    if (type(poly) is not list
-    or len(poly) == 0
-    or not isinstance(C, (int, float))):
+    if not isinstance(C, (float, int)):
         return None
-    res = [C]
+    if type(poly) is not list or len(poly) == 0:
+        return None
+    if poly == [0]:
+        return [C]
 
-    for index, coefficient in enumerate(poly):
-        Q_val = coefficient / (1 + index)
-        if Q_val.is_integer():
-            res.append(int(Q_val))
+    Integral_Value = [C]
+
+    for index in range(len(poly)):
+        if not isinstance(poly[index], (int, float)):
+            return None
+        Coef = poly[index] / (index + 1)
+        if Coef % 1 == 0:
+            Integral_Value.append(int(Coef))
         else:
-            res.append(Q_val)
-
-    for i in range(len(res)):
-        if res[-1] == 0:
-            res.pop()
-    return res
+            Integral_Value.append(Coef)
+    return Integral_Value
