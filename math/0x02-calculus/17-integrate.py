@@ -8,7 +8,8 @@ def poly_integral(poly, C=0):
     calculates the integral of a polynomial:
     """
     if (type(poly) is not list
-            or len(poly) == 0 or not isinstance(C, (int, float))):
+    or len(poly) == 0
+    or not isinstance(C, (int, float))):
         return None
     res = [C]
 
@@ -19,4 +20,7 @@ def poly_integral(poly, C=0):
         else:
             res.append(Q_val)
 
+    for i in range(len(res)):
+        if res[-1] == 0:
+            res.pop()
     return res
