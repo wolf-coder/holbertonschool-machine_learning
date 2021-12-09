@@ -16,4 +16,4 @@ def poly_derivative(poly):
         return [0]
     return [index * coefficient
             for index, coefficient in enumerate(poly)
-            if coefficient]
+            if index]
