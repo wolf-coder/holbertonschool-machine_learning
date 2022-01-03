@@ -58,3 +58,14 @@ ValueError with the message stddev must be a positive value.
         Returns the x-value of z
         """
         return (z * self.stddev) + self.mean
+
+    def pdf(self, x):
+        """
+        Calculates the value of the PDF for a given x-value
+        x is the x-value
+        Returns the PDF value for x
+        """
+        pi = 3.1415926536
+        e = 2.7182818285
+        return e ** (-0.5 * self.z_score(x) ** 2)\
+            / (self.stddev * (2 * pi) ** 0.5)
