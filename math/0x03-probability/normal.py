@@ -8,6 +8,10 @@ class Normal():
     """
     Work with normal distribution.
     """
+
+    pi = 3.1415926536
+    e = 2.7182818285
+
     def __init__(self, data=None, mean=0., stddev=1.):
         """
 Class contructor def __init__(self, data=None, mean=0., stddev=1.):
@@ -65,7 +69,20 @@ ValueError with the message stddev must be a positive value.
         x is the x-value
         Returns the PDF value for x
         """
-        pi = 3.1415926536
-        e = 2.7182818285
-        return e ** (-0.5 * self.z_score(x) ** 2)\
-            / (self.stddev * (2 * pi) ** 0.5)
+        return Normal.e ** (-0.5 * self.z_score(x) ** 2)\
+            / (self.stddev * (2 * Normal.pi) ** 0.5)
+
+    def Error_F(z):
+        """
+        The Error function's Mclaurin series
+        """
+        return (2 / Normal.pi ** 0.5) * \
+            (z - pow(z, 3)/3 + pow(z, 5)/10 - pow(z, 7)/42 + pow(z, 9)/216)
+
+    def cdf(self, x):
+        """
+        Calculates the value of the CDF for a given x-value
+        x is the x-value
+        Returns the CDF value for x
+        """
+        return 0.5 * (1 + Normal.Error_F(self.z_score(x) / pow(2, 1/2)))
