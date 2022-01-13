@@ -53,6 +53,10 @@ class Binomial:
         If k is out of range, return 0
     Returns the PMF value for k
         """
+        if type(k) is not int:
+            k = int(k)
+        if k < 0:
+            return 0
         return Binomial.Factorial(self.n) /\
             (Binomial.Factorial(k) * Binomial.Factorial(self.n - k)) *\
             pow(self.p, k) * pow(1 - self.p, self.n - k)
