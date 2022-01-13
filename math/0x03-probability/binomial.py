@@ -33,3 +33,26 @@ class Binomial:
             self.p = 1 - Variance / Expectation
             self.n = round(Expectation / self.p)
             self.p = Expectation / self.n
+
+    def Factorial(n):
+        """
+        calculate factorial
+        """
+        if n == 0 or n == 1:
+            return 1
+        k = 1
+        for i in range(1, n + 1):
+            k *= i
+        return k
+
+    def pmf(self, k):
+        """
+    Calculates the value of the PMF for a given number of “successes”
+    k is the number of “successes”
+        If k is not an integer, convert it to an integer
+        If k is out of range, return 0
+    Returns the PMF value for k
+        """
+        return Binomial.Factorial(self.n) /\
+            (Binomial.Factorial(k) * Binomial.Factorial(self.n - k)) *\
+            pow(self.p, k) * pow(1 - self.p, self.n - k)
