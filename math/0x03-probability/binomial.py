@@ -48,10 +48,8 @@ raise a ValueError with the message data must contain multiple values
             Using a `method-of-moments` estimator for p and n
             """
             Expectation = sum(data)/len(data)
-
             Variance = sum([(Xi - Expectation) ** 2 for Xi in data]) /\
                 len(data)
-
-            p = 1 - Variance / Expectation
-            self.n = round(Expectation / p)
+            self.p = 1 - Variance / Expectation
+            self.n = round(Expectation / self.p)
             self.p = Expectation / self.n
