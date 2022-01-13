@@ -31,9 +31,9 @@ raise a TypeError with the message data must be a list
 raise a ValueError with the message data must contain multiple values
         """
         if data is None:
-            if self.n <= 0:
+            if n <= 0:
                 raise ValueError("n must be a positive value")
-            if not 0 < self.p < 1:
+            if not 0 < p < 1:
                 raise ValueError("p must be greater than 0 and less than 1")
             else:
                 self.p = float(p)
