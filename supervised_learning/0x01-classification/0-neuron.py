@@ -14,9 +14,9 @@ class Neuron:
         """
         """
         if type(nx) is not int:
-            raise TypeError("the exception: nx must be an integer")
+            raise TypeError("nx must be an integer")
         if nx < 1:
-            raise ValueError("the exception: nx must be a positive integer")
+            raise ValueError("nx must be a positive integer")
         self.W = np.random.randn(1, nx)
         self.b = 0
         self.A = 0
