@@ -5,6 +5,9 @@ Representing a binomial distribution:
 
 
 class Binomial:
+    """
+    work with Binomial distribution
+    """
     def __init__(self, data=None, n=1, p=0.5):
         """
         data is a list of the data to be used to estimate the distribution
