@@ -30,7 +30,7 @@ raise a TypeError with the message data must be a list
             If data does not contain at least two data points,
 raise a ValueError with the message data must contain multiple values
         """
-        if not data:
+        if data is None:
             if self.n <= 0:
                 raise ValueError("n must be a positive value")
             if not 0 < self.p < 1:
