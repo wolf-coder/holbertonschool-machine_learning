@@ -30,14 +30,14 @@ raise a TypeError with the message data must be a list
             If data does not contain at least two data points,
 raise a ValueError with the message data must contain multiple values
         """
-        self.n = int(n)
-        self.p = float(p)
-
         if not data:
-            if self.n < 0:
+            if self.n <= 0:
                 raise ValueError("n must be a positive value")
             if not 0 < self.p < 1:
                 raise ValueError("p must be greater than 0 and less than 1")
+            else:
+                self.p = float(p)
+                self.n = int(n)
         else:
             if type(data) is not list:
                 raise TypeError("data must be a list")
