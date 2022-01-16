@@ -60,3 +60,19 @@ class Binomial:
         return Binomial.Factorial(self.n) /\
             (Binomial.Factorial(k) * Binomial.Factorial(self.n - k)) *\
             pow(self.p, k) * pow(1 - self.p, self.n - k)
+
+    def cdf(self, k):
+        """
+        Calculates the value of the CDF for a given number of “successes”
+        k is the number of “successes”
+            If k is not an integer, convert it to an integer
+            If k is out of range, return 0
+        Returns the CDF value for k
+        NOTE: using the pmf method
+        """
+        if type(k) is int:
+            k = int(k)
+        if k > self.n or k < 0:
+            return 0
+        PMFs_to_k = map(self.pmf, range(0, k + 1))
+        return sum(PMFs_to_k)
