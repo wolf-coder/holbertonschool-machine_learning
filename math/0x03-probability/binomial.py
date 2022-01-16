@@ -70,7 +70,7 @@ class Binomial:
         Returns the CDF value for k
         NOTE: using the pmf method
         """
-        if type(k) is int:
+        if type(k) is not int:
             k = int(k)
         if k > self.n or k < 0:
             return 0
