@@ -11,7 +11,8 @@ def sensitivity(confusion):
 where row indices represent the correct labels and column indices represent
 the predicted labels.
     - classes is the number of classes
-    * Returns: a numpy.ndarray of shape (classes,) containing the sensitivity of each class
+    * Returns: a numpy.ndarray of shape (classes,) containing the sensitivity
+of each class
     """
     FP = confusion.sum(0) - np.diag(confusion)
     FN = confusion.sum(1) - np.diag(confusion)
