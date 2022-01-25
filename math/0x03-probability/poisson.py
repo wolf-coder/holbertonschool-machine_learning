@@ -8,6 +8,10 @@ class Poisson:
     """Documentation for Poisson
     Class Poisson that represents a poisson distribution.
     """
+
+    pi = 3.1415926536
+    e = 2.7182818285
+
     def __init__(self, data=None, lambtha=1.):
         """
         - data is a list of the data to be used to estimate the distribution
@@ -41,3 +45,29 @@ raise a ValueError with the message data must contain multiple values
 the parameter lambtha.
             """
             self.lambtha = sum(data)/len(data)
+
+    def Factorial(n):
+        """
+        calculate factorial
+        """
+        if n == 0 or n == 1:
+            return 1
+        k = 1
+        for i in range(1, n + 1):
+            k *= i
+        return k
+
+    def pmf(self, k):
+        """
+    Calculates the value of the PMF for a given number of “successes”
+    k is the number of “successes”
+        If k is not an integer, convert it to an integer
+        If k is out of range, return 0
+    Returns the PMF value for k
+        """
+        if type(k) is not int:
+            k = int(k)
+        if k < 0:
+            return 0
+        return (pow(self.lambtha, k) * pow(Poisson.e, -self.lambtha)) /\
+            Poisson.Factorial(k)
