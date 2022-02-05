@@ -31,3 +31,11 @@ class Exponential:
             """ maximum likelihood estimate for the rate parameter lambtha
             """
             self.lambtha = len(data) / sum(data)
+
+    def pdf(self, x):
+        """
+        Probability density function
+        """
+        if x < 0:
+            return 0
+        return self.lambtha * pow(Exponential.e, -self.lambtha * x)
