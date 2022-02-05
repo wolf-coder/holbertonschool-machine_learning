@@ -39,3 +39,11 @@ class Exponential:
         if x < 0:
             return 0
         return self.lambtha * pow(Exponential.e, -self.lambtha * x)
+
+    def cdf(self, x):
+        """
+        cumulative distribution functions
+        """
+        if x < 0:
+            return 0
+        return 1 - pow(Exponential.e, -self.lambtha * x)
