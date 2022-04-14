@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 matrix = [[1, 3, 9, 4, 5, 8], [2, 4, 7, 3, 4, 0], [0, 3, 4, 6, 1, 5]]
 the_middle = []
-for row in matrix:
-    the_middle.append(row[2:4])
+# your code here
+the_middle = [x[2:4] for x in matrix]
 print("The middle columns of the matrix are: {}".format(the_middle))
