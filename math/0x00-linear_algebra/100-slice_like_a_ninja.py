@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+Module with slicing medhod
+"""
 import numpy as np
 
 
