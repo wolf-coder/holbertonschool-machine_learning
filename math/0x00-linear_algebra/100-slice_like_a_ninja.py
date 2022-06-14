@@ -2,7 +2,6 @@
 """
 Module with slicing medhod
 """
-import numpy as np
 
 
 def np_slice(matrix, axes={}):
