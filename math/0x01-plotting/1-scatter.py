@@ -11,7 +11,6 @@ y += 180
 # your code here
 
 plt.scatter(x, y, marker='o', c='#C623CB', s=9)
-
 plt.xlabel('Height (in)')
 plt.ylabel('Weight (lbs)')
 plt.show()
