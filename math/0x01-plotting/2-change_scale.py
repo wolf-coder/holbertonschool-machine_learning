@@ -8,7 +8,7 @@ t = 5730
 y = np.exp((r / t) * x)
 
 # plotting
-plt.xlabel("Fraction Remaining")
+plt.ylabel("Fraction Remaining")
 plt.xlabel("Time (years)")
 plt.title("Exponential Decay of C-14")
 plt.yscale("log")
