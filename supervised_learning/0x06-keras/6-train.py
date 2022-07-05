@@ -16,12 +16,10 @@ def train_model(
         shuffle=False):
     """train the model using early stopping"""
     model = network
+    callback = None
     if early_stopping:
-        callback = K.callbacks.EarlyStopping(
-            monitor='val_loss', patience=patience)
-    else:
-        callback = None
-    hist_obj = model.fit(
+        callback = K.callbacks.EarlyStopping(patience=patience)
+    history_object = model.fit(
         x=data,
         y=labels,
         batch_size=batch_size,
@@ -30,4 +28,4 @@ def train_model(
         callbacks=[callback],
         validation_data=validation_data,
         shuffle=shuffle)
-    return hist_obj
+    return history_object
