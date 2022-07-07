@@ -25,7 +25,12 @@ def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
     convolved_image = np.zeros(shape=(m, out_h, out_w))
     for row in range(0, out_h):
         for col in range(0, out_w):
-            convolved_image[:, row, col] = (
-                    padded_image[:, row * sh:kh + row * sh, col * sw:kw + col * sw, :]
-                    * kernel).sum(axis=(1, 2, 3))
+            convolved_image[:,
+                            row,
+                            col] = (padded_image[:,
+                                                 row * sh:kh + row * sh,
+                                                 col * sw:kw + col * sw,
+                                                 :] * kernel).sum(axis=(1,
+                                                                        2,
+                                                                        3))
     return convolved_image
