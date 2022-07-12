@@ -3,6 +3,7 @@
 concatenating two matrices
 """
 
+
 def matrix_shape(arg):
     """
     mehtod that calculates the shape of a matrix:
@@ -20,6 +21,7 @@ def matrix_shape(arg):
     else:
         return [0]
 
+
 def cat_matrices(mat1, mat2, axis=0):
     """
 - A function concatenates two matrices along a specific axis:
@@ -33,7 +35,7 @@ of the same type/shape
     matrix = []
 
     if (len(mat1) != len(mat2)):
-            return None
+        return None
     if axis == 0:
         mat1_Shape = matrix_shape(mat1)
         mat2_Shape = matrix_shape(mat2)
