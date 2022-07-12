@@ -34,7 +34,7 @@ of the same type/shape
     """
     matrix = []
 
-    if (len(mat1) != len(mat2)):
+      if type(mat1) is not type(mat2) or type(mat1) is not list:
         return None
     if axis == 0:
         mat1_Shape = matrix_shape(mat1)
