@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 import matplotlib.pyplot as plt
 import numpy as np
@@ -11,7 +10,7 @@ y = np.random.randn(2000) * 10
 z = np.random.rand(2000) + 40 - np.sqrt(np.square(x) + np.square(y))
 
 # Plotting
-cbar.set_label("elevation (m)" )
+cbar.set_label("elevation (m)")
 plt.xlabel("x coordinate (m)")
 plt.title("Mountain Elevation")
 plt.ylabel("y coordinate (m)")
