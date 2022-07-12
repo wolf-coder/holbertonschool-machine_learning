@@ -7,15 +7,44 @@ def lenet5(x, y):
     """
         modified version of the LeNet-5 architecture using tensorflow
     """
-    kernel = tf.contrib.layers.variance_scaling_initializer()
-    L1_conv = tf.layers.conv2d(x, 6, (5, 5), kernel, "SAME", 'relu')
-    L2_pool = tf.layers.max_pooling2d(L1_conv, (2, 2), (2, 2))
-    L3_conv = tf.layers.conv2d(L2_pool, 16, (5, 5), kernel, 'relu')
-    L4_pool = tf.layers.max_pooling2d(L3_conv, (2, 2), (2, 2))
-    L4_flat = tf.contrib.layers.flatten(L4_pool)
-    L5_fc = tf.layers.dense(L4_flat, 120, kernel, 'relu')
-    L6_fc = tf.layers.dense(L5_fc, 84, kernel, 'relu')
-    L7_fc = tf.layers.dense(L6_fc, 10, kernel)
+    kernel = tf.keras.initializers.VarianceScaling(scale=2.0)
+    L1_conv = tf.layers.conv2d(
+        inputs=x,
+        filters=6,
+        kernel_size=(
+            5,
+            5),
+        kernel_initializer=kernel,
+        padding="SAME",
+        activation='relu')
+    L2_pool = tf.layers.max_pooling2d(
+        inputs=L1_conv, pool_size=(
+            2, 2), strides=(
+            2, 2))
+    L3_conv = tf.layers.conv2d(
+        inputs=L2_pool,
+        filters=16,
+        kernel_size=(
+            5,
+            5),
+        kernel_initializer=kernel,
+        activation='relu')
+    L4_pool = tf.layers.max_pooling2d(
+        inputs=L3_conv, pool_size=(
+            2, 2), strides=(
+            2, 2))
+    L4_flat = tf.layers.flatten(L4_pool)
+    L5_fc = tf.layers.dense(
+        inputs=L4_flat,
+        units=120,
+        kernel_initializer=kernel,
+        activation='relu')
+    L6_fc = tf.layers.dense(
+        inputs=L5_fc,
+        units=84,
+        kernel_initializer=kernel,
+        activation='relu')
+    L7_fc = tf.layers.dense(inputs=L6_fc, units=10, kernel_initializer=kernel,)
     Y_pred = tf.nn.softmax(L7_fc)
     loss = tf.losses.softmax_cross_entropy(y, L7_fc)
     Train_op = tf.train.AdamOptimizer().minimize(loss)
