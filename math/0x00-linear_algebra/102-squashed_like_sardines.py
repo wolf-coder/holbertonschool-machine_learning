@@ -3,8 +3,22 @@
 concatenating two matrices
 """
 
-matrix_shape = __import__('2-size_me_please').matrix_shape
+def matrix_shape(arg):
+    """
+    mehtod that calculates the shape of a matrix:
+    - You can assume all elements in the same dimension are
+        of the same type/shape.
+    - The shape should be returned as a list of integers.
+    """
 
+    shape = [len(arg)]
+    if len(arg) != 0:
+        while type(arg[0]) == list:
+            shape.append(len(arg[0]))
+            arg = arg[0]
+        return shape
+    else:
+        return [0]
 
 def cat_matrices(mat1, mat2, axis=0):
     """
