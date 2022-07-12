@@ -39,7 +39,8 @@ of the same type/shape
     if axis == 0:
         mat1_Shape = matrix_shape(mat1)
         mat2_Shape = matrix_shape(mat2)
-        if len(mat1_Shape) != len(mat2_Shape) or (len(mat1_Shape) > 0 and mat1_Shape[1:] != mat2_Shape[1:]):
+        if len(mat1_Shape) != len(mat2_Shape) or \
+           (len(mat1_Shape) > 0 and mat1_Shape[1:] != mat2_Shape[1:]):
             return None
         matrix = mat1 + mat2
     else:
