@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """YOLO module"""
 
-from tensorflow import keras, nn
+from tensorflow import keras as K
 import numpy as np
 
 
@@ -16,6 +16,10 @@ class Yolo:
         self.class_t = class_t
         self.nms_t = nms_t
         self.anchors = anchors
+
+    def sigmoid(self, z):
+        """sigmoid"""
+        return (1 / (1 + np.exp(-z)))
 
     def process_outputs(self, outputs, image_size):
         """process outputs function"""
@@ -59,7 +63,7 @@ class Yolo:
             box[..., 3] = y1
             boxes.append(box)
             box_confidences.append(np.expand_dims(
-                nn.sigmoid(grid[..., 4]), axis=-1))
+                sigmoid(grid[..., 4]), axis=-1))
             conf = grid[..., 5:]
-            box_class_probs.append(nn.sigmoid(conf))
+            box_class_probs.append(sigmoid(conf))
         return (boxes, box_confidences, box_class_probs)
