@@ -59,7 +59,8 @@ class NST:
 
     def load_model(self):
         """creates model"""
-        base_model = tf.keras.applications.vgg19.VGG16(include_top=False, weights='imagenet')
+        base_model = tf.keras.applications.vgg19.VGG16(
+            include_top=False, weights='imagenet')
         base_model.trainable = False
         base_model.save("base_model")
         model = tf.keras.models.load_model(
