@@ -53,7 +53,7 @@ class NST:
         elif h > w:
             w_new = int(w * 512 / h)
         image = tf.expand_dims(image, 0)
-        image = tf.image.resize(image, (h_new, w_new))
+        image = tf.image.resize_bicubic(image, (h_new, w_new))
         image = image / 255
         return tf.clip_by_value(image, clip_value_min=0, clip_value_max=1)
 
@@ -65,7 +65,8 @@ class NST:
         model = tf.keras.models.load_model(
             "base_model", {
                 'MaxPooling2D': tf.keras.layers.AveragePooling2D})
-        style_outputs = [model.get_layer(layer).output for layer in self.style_layers]
+        style_outputs = [model.get_layer(
+            layer).output for layer in self.style_layers]
         content_output = [model.get_layer(self.content_layer).output]
         self.model = tf.keras.models.Model(
             model.input, style_outputs + content_output)
