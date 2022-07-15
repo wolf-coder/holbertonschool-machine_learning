@@ -61,6 +61,8 @@ class NST:
         """creates model"""
         base_model = tf.keras.applications.vgg19.VGG19(include_top=False)
         base_model.trainable = False
+        for layer in base_model.layers:
+            layer.trainable = False
         base_model.save("base_model")
         model = tf.keras.models.load_model(
             "base_model", {
