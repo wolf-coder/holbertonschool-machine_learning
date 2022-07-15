@@ -42,6 +42,6 @@ class NST:
             w_new = int(w * 512 / h)
         tf.image.ResizeMethod.BICUBIC
         image = tf.expand_dims(image, 0)
-        image = tf.compat.v1.image.resize_bicubic(image, (h_new, w_new))
+        image = tf.image.resize_bicubic(image, (h_new, w_new))
         image = image / 255
         return tf.clip_by_value(image, clip_value_min=0, clip_value_max=1)
