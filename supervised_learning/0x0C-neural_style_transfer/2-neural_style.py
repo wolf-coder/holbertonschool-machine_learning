@@ -54,7 +54,6 @@ class NST:
             w_new = int(w * 512 / h)
         image = tf.expand_dims(image, 0)
         image = tf.image.resize_bicubic(image, (h_new, w_new))
-        #image = tf.image.resize(image, (h_new, w_new))
         image = image / 255
         return tf.clip_by_value(image, clip_value_min=0, clip_value_max=1)
 
@@ -86,4 +85,4 @@ class NST:
         a = tf.reshape(input_layer, [-1, channels])
         n = tf.shape(a)[0]
         gram = tf.matmul(a, a, transpose_a=True)
-        return gram / tf.cast(n, tf.float32)
+        return tf.expand_dims(gram, 0) / tf.cast(n, tf.float32)
