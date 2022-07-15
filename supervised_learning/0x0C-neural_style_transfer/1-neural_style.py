@@ -61,8 +61,11 @@ class NST:
         """creates model"""
         base_model = tf.keras.applications.VGG16(include_top=False)
         base_model.trainable = False
-        model = tf.keras.models.load_model("base_model")
-        style_outputs = [model.get_layer(self.style_layers).output]
+        base_model.save("base_model")
+        model = tf.keras.models.load_model(
+            "base_model", {
+                'MaxPooling2D': tf.keras.layers.AveragePooling2D})
+        style_outputs = [model.get_layer(x).output for x in self.style_layers]
         content_output = [model.get_layer(self.content_layer).output]
         self.model = tf.keras.models.Model(
             model.input, style_outputs + content_output)
