@@ -3,10 +3,12 @@
 import numpy as np
 import tensorflow as tf
 
+
 class NST:
     """NST class"""
     style_layers = ['block1_conv1', 'block2_conv1', 'block3_conv1', 'block4_conv1', 'block5_conv1']
     content_layer = 'block5_conv2'
+
     def __init__(self, style_image, content_image, alpha=1e4, beta=1):
         """init function"""
         if (not isinstance(style_image, np.ndarray) or len(style_image.shape) != 3 or style_image.shape[2] != 3):
@@ -18,12 +20,12 @@ class NST:
         if not isinstance(beta, (int, float)) or beta < 0:
             raise TypeError("beta must be a non-negative number")
 
-        #tf.enable_eager_execution()
+        tf.enable_eager_execution()
         self.style_image = self.scale_image(style_image)
         self.content_image = self.scale_image(content_image)
         self.alpha = alpha
         self.beta = beta
-    
+
     @staticmethod
     def scale_image(image):
         """
@@ -40,6 +42,6 @@ class NST:
             w_new = int(w * 512 / h)
         tf.image.ResizeMethod.BICUBIC
         image = tf.expand_dims(image, 0)
-        image =tf.compat.v1.image.resize_bicubic(image, (h_new, w_new))
+        image = tf.compat.v1.image.resize_bicubic(image, (h_new, w_new))
         image = image / 255
         return tf.clip_by_value(image, clip_value_min=0, clip_value_max=1)
