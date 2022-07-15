@@ -51,7 +51,6 @@ class NST:
             h_new = int(h * 512 / w)
         elif h > w:
             w_new = int(w * 512 / h)
-        #tf.image.ResizeMethod.BICUBIC
         image = tf.expand_dims(image, 0)
         image = tf.image.resize_bicubic(image, (h_new, w_new))
         image = image / 255
