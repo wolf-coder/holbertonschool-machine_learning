@@ -59,12 +59,12 @@ class NST:
 
     def load_model(self):
         """creates model"""
-        base_model = tf.keras.applications.vgg19.VGG16(
-            include_top=False, weights='imagenet')
+        base_model = tf.keras.applications.vgg19.VGG19(include_top=False)
         base_model.trainable = False
         base_model.save("base_model")
-        obj = {'MaxPooling2D': tf.keras.layers.AveragePooling2D}
-        model = tf.keras.models.load_model("base_model", custom_objects=obj)
+        model = tf.keras.models.load_model(
+            "base_model", {
+                'MaxPooling2D': tf.keras.layers.AveragePooling2D})
         style_outputs = [model.get_layer(
             name).output for name in self.style_layers]
         content_output = [model.get_layer(
