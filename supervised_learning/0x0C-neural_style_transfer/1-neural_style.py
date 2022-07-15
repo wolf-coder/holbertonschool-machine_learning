@@ -65,7 +65,7 @@ class NST:
         model = tf.keras.models.load_model(
             "base_model", {
                 'MaxPooling2D': tf.keras.layers.AveragePooling2D})
-        style_outputs = [model.get_layer(x).output for x in self.style_layers]
+        style_outputs = [model.get_layer(layer).output for layer in self.style_layers]
         content_output = [model.get_layer(self.content_layer).output]
         self.model = tf.keras.models.Model(
             model.input, style_outputs + content_output)
