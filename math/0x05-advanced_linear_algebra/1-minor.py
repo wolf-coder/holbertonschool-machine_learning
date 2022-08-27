@@ -4,6 +4,24 @@ Matrix Minor
 """
 
 
+def matrix_shape(arg):
+    """
+    mehtod that calculates the shape of a matrix:
+    - You can assume all elements in the same dimension are
+        of the same type/shape.
+    - The shape should be returned as a list of integers.
+    """
+
+    shape = [len(arg)]
+    if len(arg) != 0:
+        while len(arg) != 0 and type(arg[0]) == list:
+            shape.append(len(arg[0]))
+            arg = arg[0]
+        return shape
+    else:
+        return [0]
+
+
 def Laplace(matrix):
     """
     Using Laplace Expansion method to get the determinant of a matrix.
