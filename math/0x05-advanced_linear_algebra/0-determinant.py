@@ -59,7 +59,7 @@ matrix must be a square matrix.
         return 1
     shape = matrix_shape(matrix)
     if shape[0] != shape[1]:
-        raise ValueError("matrix must be a square matrix")
+        raise ValueError('matrix must be a square matrix')
 
     if matrix_shape(matrix) == [1, 1]:  # 1x1 matrix
         return matrix[0][0]
