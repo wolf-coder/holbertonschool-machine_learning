@@ -51,6 +51,7 @@ matrix must be a square matrix.
         - The list [[]] represents a 0x0 matrix.
         - Returns: the determinant of matrix.
     """
+    """
     if len(matrix) == 0 or\
        any([(False if type(el) == list else True) for el in matrix]):
         raise TypeError("matrix must be a list of lists")
@@ -63,4 +64,18 @@ matrix must be a square matrix.
 
     if matrix_shape(matrix) == [1, 1]:  # 1x1 matrix
         return matrix[0][0]
+    """
+    if type(matrix) is not list or not matrix:
+        raise TypeError('matrix must be a list of lists')
+    if matrix == [[]]:
+        return 1
+    m = len(matrix)
+    for row in matrix:
+        if type(row) is not list:
+            raise TypeError('matrix must be a list of lists')
+        if len(row) !=  m:
+            raise ValueError('matrix must be a square matrix')
+    if m == 1:
+        return matrix[0][0]
+    
     return Laplace(matrix)
