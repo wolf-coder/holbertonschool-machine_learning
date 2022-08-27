@@ -43,7 +43,7 @@ message matrix must be a non-empty square matrix.
         if type(row) is not list:
             raise TypeError('matrix must be a list of lists')
         if len(row) != col:
-            raise ValueError('matrix must be a square matrix')
+            raise ValueError('matrix must be a non-empty square matrix')
 
     if matrix_shape(matrix) == [1, 1]:  # 1x1 matrix
         return 1
