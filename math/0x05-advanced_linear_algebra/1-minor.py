@@ -3,8 +3,24 @@
 Matrix Minor
 """
 
-matrix_shape = __import__("0-determinant").matrix_shape
-Laplace = __import__("0-determinant").Laplace
+
+def Laplace(matrix):
+    """
+    Using Laplace Expansion method to get the determinant of a matrix.
+    (recursion)
+    """
+    sum = 0
+    if len(matrix) == 2:
+        return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
+    else:
+        for index in range(len(matrix)):
+            Cofactor = Laplace([row[1:] for row in matrix if
+                                matrix.index(row) != index])
+            if index % 2 == 0:
+                sum += matrix[index][0] * Cofactor
+            else:
+                sum -= matrix[index][0] * Cofactor
+    return sum
 
 
 def minor(matrix):
