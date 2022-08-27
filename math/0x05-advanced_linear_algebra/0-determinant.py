@@ -11,10 +11,9 @@ def matrix_shape(arg):
         of the same type/shape.
     - The shape should be returned as a list of integers.
     """
-
     shape = [len(arg)]
     if len(arg) != 0:
-        while type(arg[0]) == list:
+        while len(arg) != 0 and type(arg[0]) == list:
             shape.append(len(arg[0]))
             arg = arg[0]
         return shape
