@@ -54,8 +54,7 @@ message matrix must be a non-empty square matrix.
     """
     if type(matrix) is not list or not matrix:
         raise TypeError('matrix must be a list of lists')
-    if matrix == [[]]:  # [[]] is a 0x0 matrix => (minor = 1)
-        return 1
+
     col = len(matrix)
     for row in matrix:
         if type(row) is not list:
@@ -67,7 +66,7 @@ message matrix must be a non-empty square matrix.
         return 1
 
     # 2x2 matrix
-    if matrix_shape(matrix) == [2, 2]:  # 1x1 matrix
+    if matrix_shape(matrix) == [2, 2]:  # 2x2 matrix
         return [[matrix[1][1], matrix[1][0]], [matrix[0][1], matrix[0][0]]]
 
     #  nxn matrix
