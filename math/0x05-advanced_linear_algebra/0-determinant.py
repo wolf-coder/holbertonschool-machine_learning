@@ -57,8 +57,8 @@ matrix must be a square matrix.
 
     if matrix == [[]]:  # [[]] is a 0x0 matrix => (det = 1)
         return 1
-
-    if matrix_shape(matrix)[0] != matrix_shape(matrix)[1]:
+    shape = matrix_shape(matrix)
+    if shape[0] != shape[1]:
         raise ValueError("matrix must be a square matrix")
 
     if matrix_shape(matrix) == [1, 1]:  # 1x1 matrix
