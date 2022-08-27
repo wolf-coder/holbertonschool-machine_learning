@@ -63,7 +63,7 @@ message matrix must be a non-empty square matrix.
             raise ValueError('matrix must be a non-empty square matrix')
 
     if matrix_shape(matrix) == [1, 1]:  # 1x1 matrix
-        return 1
+        return [[1]]
 
     # 2x2 matrix
     if matrix_shape(matrix) == [2, 2]:  # 2x2 matrix
