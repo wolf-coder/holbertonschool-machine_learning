@@ -54,10 +54,12 @@ def cofactor(matrix):
     if type(matrix) is not list or not matrix:
         raise TypeError('matrix must be a list of lists')
 
-    if matrix_shape(matrix) == [1, 1]:  # 1x1 matrix
+    Shape = matrix_shape(matrix)
+    if Shape == [1]:
+        raise TypeError('matrix must be a list of lists')
+    if Shape == [1, 1]:  # 1x1 matrix
         return [[1]]
 
-    Shape = matrix_shape(matrix)
     if Shape[0] != Shape[1]:
         raise ValueError('matrix must be a non-empty square matrix')
     # 2x2 matrix
