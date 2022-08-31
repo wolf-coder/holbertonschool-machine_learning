@@ -23,8 +23,6 @@ def definiteness(matrix):
     - If matrix does not fit any of the above categories, return None
     - You may import numpy as np
     """
-    if matrix.__class__.__name__ not in "numpy.ndarray":
-        raise TypeError("matrix must be a numpy.ndarray")
 
     Shape = matrix.shape
     if len(Shape) != 2 or (Shape[0] != Shape[1])\
