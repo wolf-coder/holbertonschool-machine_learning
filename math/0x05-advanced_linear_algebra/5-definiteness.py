@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 definiteness of a matrix.
 """
@@ -6,7 +5,6 @@ import numpy as np
 
 
 def definiteness(matrix):
-
     """
     - Function that calculates the definiteness of a matrix:
     - matrix is a numpy.ndarray of shape (n, n) whose definiteness
