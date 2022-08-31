@@ -24,9 +24,10 @@ def definiteness(matrix):
         raise TypeError("matrix must be a numpy.ndarray")
 
     Shape = matrix.shape
-    if len(Shape) != 2\
-       or (Shape[0] != Shape[1])\
-       or not np.array_equal(matrix, matrix.transpose()):  # Not a valid matrix
+    if len(Shape) != 2 or (Shape[0] != Shape[1]):
+        return None
+    Transpose = matrix.transpose()
+    if not np.array_equal(matrix, Transpose):  # Not a valid matrix
         return None
 
     EigenValues, _ = np.linalg.eig(matrix)
