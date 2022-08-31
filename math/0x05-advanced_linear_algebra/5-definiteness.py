@@ -2,10 +2,11 @@
 """
 definiteness of a matrix.
 """
+import numpy as np
 
 
 def definiteness(matrix):
-    import numpy as np
+
     """
     - Function that calculates the definiteness of a matrix:
     - matrix is a numpy.ndarray of shape (n, n) whose definiteness
@@ -30,7 +31,7 @@ def definiteness(matrix):
        or not np.array_equal(matrix, matrix.transpose()):  # Not a valid matrix
         return None
 
-    EigenValues = np.linalg.eigvals(matrix)
+    EigenValues, _ = np.linalg.eig(matrix)
     Str = ""
     if np.all(EigenValues >= 0):
         Str = 'Positive definite'
