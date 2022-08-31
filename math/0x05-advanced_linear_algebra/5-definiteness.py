@@ -4,8 +4,8 @@ definiteness of a matrix.
 """
 
 
-
 def definiteness(matrix):
+    import numpy as np
     """
     - Function that calculates the definiteness of a matrix:
     - matrix is a numpy.ndarray of shape (n, n) whose definiteness
