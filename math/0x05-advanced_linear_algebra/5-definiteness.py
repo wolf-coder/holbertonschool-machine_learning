@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" definiteness of a matrix """
+""" Matrix definiteness """
 
 import numpy as np
 
