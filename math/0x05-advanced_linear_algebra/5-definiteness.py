@@ -35,11 +35,11 @@ def definiteness(matrix):
     #     Str = 'Positive definite'
     #     if np.any(EigenValues == 0):
     #         Str = 'Positive semi-definite'
-        return Str
-    if np.all(EigenValues <= 0):
-        Str = 'Negative definite'
-        if np.any(EigenValues == 0):
-            Str = 'Negative semi-definite'
-        return Str
+    #     return Str
+    # if np.all(EigenValues <= 0):
+    #     Str = 'Negative definite'
+    #     if np.any(EigenValues == 0):
+    #         Str = 'Negative semi-definite'
+    #     return Str
 
-    return 'Indefinite'
+    # return 'Indefinite'
