@@ -2,7 +2,6 @@
 """
 definiteness of a matrix.
 """
-import numpy as np
 
 
 def definiteness(matrix):
