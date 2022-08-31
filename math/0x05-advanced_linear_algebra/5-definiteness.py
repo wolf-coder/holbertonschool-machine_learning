@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-"""
-definiteness of a matrix.
-"""
+""" definiteness of a matrix """
+
 import numpy as np
 
 
