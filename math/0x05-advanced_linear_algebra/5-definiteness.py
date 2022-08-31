@@ -24,17 +24,17 @@ def definiteness(matrix):
     if matrix.__class__.__name__ not in "numpy.ndarray":
         raise TypeError("matrix must be a numpy.ndarray")
 
-    Shape = matrix.shape
-    if len(Shape) != 2 or (Shape[0] != Shape[1])\
-       or not np.all(matrix == matrix.transpose()):  # Not a valid matrix
-        return None
+    # Shape = matrix.shape
+    # if len(Shape) != 2 or (Shape[0] != Shape[1])\
+    #    or not np.all(matrix == matrix.transpose()):  # Not a valid matrix
+    #     return None
 
-    EigenValues = np.linalg.eigvals(matrix)
-    Str = ""
-    if np.all(EigenValues >= 0):
-        Str = 'Positive definite'
-        if np.any(EigenValues == 0):
-            Str = 'Positive semi-definite'
+    # EigenValues = np.linalg.eigvals(matrix)
+    # Str = ""
+    # if np.all(EigenValues >= 0):
+    #     Str = 'Positive definite'
+    #     if np.any(EigenValues == 0):
+    #         Str = 'Positive semi-definite'
         return Str
     if np.all(EigenValues <= 0):
         Str = 'Negative definite'
