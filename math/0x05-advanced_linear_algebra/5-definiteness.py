@@ -30,16 +30,13 @@ def definiteness(matrix):
         return None
 
     EigenValues, _ = np.linalg.eig(matrix)
-    Str = ""
-    if all(EigenValues >= 0):
-        Str = 'Positive definite'
-        if any(EigenValues == 0):
-            Str = 'Positive semi-definite'
-        return Str
-    if all(EigenValues <= 0):
-        Str = 'Negative definite'
-        if any(EigenValues == 0):
-            Str = 'Negative semi-definite'
-        return Str
-
-    return 'Indefinite'
+    if all(EigenValues > 0):
+        return 'Positive definite'
+    elif all(EigenValues >= 0):
+        return 'Positive semi-definite'
+    elif all(EigenValues < 0):
+        return 'Negative definite'
+    elif all(EigenValues <= 0):
+        return 'Negative semi-definite'
+    else:
+        return 'Indefinite'
