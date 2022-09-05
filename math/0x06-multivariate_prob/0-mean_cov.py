@@ -3,6 +3,7 @@
 Multivariate_Normal distribution parameters:
 covariance, mean
 """
+import numpy as np
 
 
 def Cov(V0, V1, M0, M1, n):
@@ -17,7 +18,8 @@ def mean_cov(X):
     """
     Function that calculates the mean and covariance of a data set:
     """
-
+    if not isinstance(X, np.ndarray):
+        raise TypeError('the message X must be a 2D numpy.ndarray')
     Shape = X.shape
     n, d = Shape
     if len(Shape) != 2:
