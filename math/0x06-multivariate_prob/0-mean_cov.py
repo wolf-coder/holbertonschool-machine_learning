@@ -18,20 +18,15 @@ def mean_cov(X):
     """
     Function that calculates the mean and covariance of a data set:
     """
-    if not isinstance(X, np.ndarray):
+    if not isinstance(X, np.ndarray) or X.ndim != 2:
         raise TypeError('X must be a 2D numpy.ndarray')
     Shape = X.shape
     n, d = Shape
-    if X.ndim != 2:
-        raise TypeError('X must be a 2D numpy.ndarray')
     if n < 2:
         raise ValueError('X must contain multiple data points')
 
-    mean = [sum(X[:, i])/n for i in range(d)]
-
-    cov = []
-    for i in range(d):
-        cov.append(
-            [(Cov(X[:, i], X[:, j], mean[i], mean[j], n)) for j in range(d)])
+    mean = X.mean(axis=0).reshape(1, d)
+    X_mean = X - mean
+    cov = (X_mean.T @ X_mean) / (n - 1)
 
     return mean, cov
