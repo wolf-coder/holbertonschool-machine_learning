@@ -35,3 +35,31 @@ matrix data
         self.mean = data.mean(axis=1, keepdims=True).reshape(d, 1)
         Data_mean = data - self.mean
         self.cov = (Data_mean @ Data_mean.T) / (n - 1)
+
+    def pdf(self, x):
+        """
+calculates the PDF at a data point:
+    x is a numpy.ndarray of shape (d, 1) containing the data point
+whose PDF should be calculated
+        d is the number of dimensions of the MultiNormal instance
+    If x is not a numpy.ndarray, raise a TypeError with the
+message x must be a numpy.ndarray
+    If x is not of shape (d, 1), raise a ValueError with the
+message x must have the shape ({d}, 1)
+    Returns the value of the PDF
+    You are not allowed to use the function numpy.cov
+
+        """
+        if not isinstance(x, np.ndarray):
+            raise TypeError('x must be a numpy.ndarray')
+        d, _ = x.shape
+        if x.shape != (d, 1):
+            raise ValueError('x must have the shape ({}, 1)'.format(d))
+
+        pdf = 1 / (((2 * np.pi) ** (d / 2)) *\
+                   (np.sqrt(np.linalg.det(self.cov)))) *\
+                   (np.exp((-1 / 2) * ((x - self.mean).T @\
+                                       np.linalg.inv(self.cov) @\
+                                       (x - self.mean))))        
+
+        return pdf[0][0]
