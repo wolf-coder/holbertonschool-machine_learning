@@ -56,10 +56,10 @@ message x must have the shape ({d}, 1)
 
         if len(x.shape) != 2 or x.shape[1] != 1 or x.shape[0] != dim:
             raise ValueError("x must have the shape ({}, 1)".format(dim))
-        d = dim
+
         p2 = ((x - self.mean).T @ np.linalg.inv(self.cov) @ (x - self.mean))
         p1 = np.exp((-1 / 2) * p2)
         p3 = (np.sqrt(np.linalg.det(self.cov)))
-        pdf = 1 / (((2 * np.pi) ** (d / 2)) * p3) * p1
+        pdf = 1 / (((2 * np.pi) ** (dim / 2)) * p3) * p1
 
         return pdf[0][0]
