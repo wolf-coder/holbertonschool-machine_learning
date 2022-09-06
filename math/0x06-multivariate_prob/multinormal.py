@@ -23,8 +23,9 @@ matrix data
     You are not allowed to use the function numpy.cov
     """
     def __init__(self, data):
-        "docstring"
-        if not isinstance(data, np.ndarray) or len(data.shape) != 2:
+        "constructor method"
+        if not isinstance(data, np.ndarray) or data.ndim != 2\
+           or data.shape[0] < 2:
             raise TypeError('data must be a 2D numpy.ndarray')
         d, n = data.shape
         if n < 2:
