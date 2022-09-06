@@ -24,13 +24,12 @@ matrix data
     """
     def __init__(self, data):
         "constructor method"
-        if not isinstance(data, np.ndarray) or data.ndim != 2\
-           or data.shape[0] < 2:
+        if not isinstance(data, np.ndarray) or data.ndim != 2:
             raise TypeError('data must be a 2D numpy.ndarray')
         d, n = data.shape
         if n < 2:
             raise ValueError('data must contain multiple data points')
 
-        self.mean = data.mean(axis=1).reshape(3, 1)
+        self.mean = data.mean(axis=1, keepdims=True).reshape(3, 1)
         Data_mean = data - self.mean
         self.cov = (Data_mean @ Data_mean.T) / (n - 1)
