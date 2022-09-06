@@ -52,10 +52,11 @@ message x must have the shape ({d}, 1)
         """
         if not isinstance(x, np.ndarray):
             raise TypeError('x must be a numpy.ndarray')
-        d, _ = x.shape
-        if x.ndim != 2 or x.shape != ((self.cov.shape)[0], 1):
-            raise ValueError('x must have the shape ({}, 1)'.format(d))
+        dim, _ = self.cov.shape
 
+        if len(x.shape) != 2 or x.shape[1] != 1 or x.shape[0] != dim:
+            raise ValueError("x must have the shape ({}, 1)".format(dim))
+        d = dim
         pdf = 1 / (((2 * np.pi) ** (d / 2)) *\
                    (np.sqrt(np.linalg.det(self.cov)))) *\
                    (np.exp((-1 / 2) * ((x - self.mean).T @\
