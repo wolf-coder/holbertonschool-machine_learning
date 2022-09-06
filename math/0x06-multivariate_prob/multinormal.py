@@ -7,7 +7,10 @@ import numpy as np
 
 class MultiNormal():
     """
-class that represents a Multivariate Normal distribution:
+    class that represents a Multivariate Normal distribution:
+    """
+    def __init__(self, data):
+        """
     class constructor def __init__(self, data):
         data is a numpy.ndarray of shape (d, n) containing the data set:
         n is the number of data points
@@ -21,9 +24,8 @@ data must contain multiple data points
         cov - a numpy.ndarray of shape (d, d) containing the covariance
 matrix data
     You are not allowed to use the function numpy.cov
-    """
-    def __init__(self, data):
-        "constructor method"
+
+        """
         if not isinstance(data, np.ndarray) or data.ndim != 2:
             raise TypeError('data must be a 2D numpy.ndarray')
         d, n = data.shape
