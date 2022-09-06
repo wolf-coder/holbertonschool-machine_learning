@@ -28,9 +28,9 @@ matrix data
         """
         if not isinstance(data, np.ndarray) or data.ndim != 2:
             raise TypeError('data must be a 2D numpy.ndarray')
-        d, n = data.shape
-        if n < 2:
+        if data.shape[1] < 2:
             raise ValueError('data must contain multiple data points')
+        d, n = data.shape
 
         self.mean = data.mean(axis=1, keepdims=True).reshape(3, 1)
         Data_mean = data - self.mean
