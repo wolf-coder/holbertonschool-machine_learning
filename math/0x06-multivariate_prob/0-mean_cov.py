@@ -6,14 +6,6 @@ covariance, mean
 import numpy as np
 
 
-def Cov(V0, V1, M0, M1, n):
-    """
-    Calculate the covariance
-    """
-    Coupled = [(V0[i] * V1[i]) for i in range(n)]
-    return (sum(Coupled) / n) - (M0 * M1)
-
-
 def mean_cov(X):
     """
     Function that calculates the mean and covariance of a data set:
