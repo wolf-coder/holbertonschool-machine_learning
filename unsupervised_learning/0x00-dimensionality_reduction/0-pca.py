@@ -21,8 +21,6 @@ of X‘s original variance
         W is a numpy.ndarray of shape (d, nd) where nd is the new
 dimensionality of the transformed X
     """
-    #  get the covariance matrix Sigma
-    Sigma = np.cov(X)
 
     #  Perform [U, S, V] = svd(Sigma)
     [U, S, V] = np.linalg.svd(X)
@@ -37,4 +35,6 @@ dimensionality of the transformed X
     Total_variance = cum_variance_S_array[-1]
     for k, el in enumerate(cum_variance_S_array):
         if el/Total_variance >= var:
+            print(k)
+            break
             return V[:k + 1].T
