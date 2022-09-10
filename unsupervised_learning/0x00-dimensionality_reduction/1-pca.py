@@ -18,8 +18,7 @@ function that performs PCA on a dataset:
 the transformed version of X
     """
     #  Data preparation
-    Data = X.copy()
-    Data_m = Data - np.mean(Data, axis=0)
+    Data_m = X - np.mean(Data, axis=0)
     #  Perform [U, S, V] = svd(Sigma)
     [U, S, V] = np.linalg.svd(Data_m)
 
