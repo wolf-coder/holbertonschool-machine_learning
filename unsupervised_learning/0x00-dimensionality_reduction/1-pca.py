@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """
+Perform SVD to Get the transformed version of X
 """
 
 import numpy as np
