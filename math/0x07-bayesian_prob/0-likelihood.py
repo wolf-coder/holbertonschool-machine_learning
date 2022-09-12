@@ -40,7 +40,7 @@ of obtaining the data, x and n, for each probability in P, respectively
     
     if not isinstance(P, np.ndarray) or P.ndim != 1:
         raise TypeError('P must be a 1D numpy.ndarray')
-    if not ((P <= 1).all() and (P <= 1).all()):
+    if not ((P <= 1).all() and (P >= 0).all()):
         raise ValueError('All values in P must be in the range [0, 1]')
 
     Fact = np.math.factorial  # Factorial Function
