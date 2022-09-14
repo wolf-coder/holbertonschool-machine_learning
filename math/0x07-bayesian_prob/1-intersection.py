@@ -39,12 +39,12 @@ function that calculates the intersection of obtaining this data with the variou
     Incorrect_var = None
     if not ((P <= 1).all() and (P >= 0).all()):
         Incorrect_var = 'P'
-    if not (Pr <= 1).all() and (Pr >= 0).all():
+    elif not (Pr <= 1).all() and (Pr >= 0).all():
         Incorrect_var = 'Pr'
     if Incorrect_var:
         raise ValueError('All values in {} must be in the range [0, 1]'.format(Incorrect_var))
 
     if not np.isclose(sum(Pr), 1):
-        raise ValueError('Pr must sum to 1 Hint: use numpy.isclose')
+        raise ValueError('Pr must sum to 1')
 
     return likelihood(x, n, P) * Pr
