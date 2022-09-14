@@ -36,6 +36,8 @@ function that calculates the intersection of obtaining this data with the variou
     if not isinstance(Pr, np.ndarray) or Pr.shape != P.shape:
         raise TypeError('Pr must be a numpy.ndarray with the same shape as P')
 
+    """
+
     Incorrect_var = None
     if not ((P <= 1).all() and (P >= 0).all()):
         Incorrect_var = 'P'
@@ -43,6 +45,13 @@ function that calculates the intersection of obtaining this data with the variou
         Incorrect_var = 'Pr'
     if Incorrect_var:
         raise ValueError('All values in {} must be in the range [0, 1]'.format(Incorrect_var))
+
+    """
+    if (not (np.all(P >= 0) and np.all(P <= 1))):
+        raise ValueError("All values in P must be in the range [0, 1]")
+
+    if (not (np.all(Pr >= 0) and np.all(Pr <= 1))):
+        raise ValueError("All values in Pr must be in the range [0, 1]")
 
     if not np.isclose(sum(Pr), 1):
         raise ValueError('Pr must sum to 1')
