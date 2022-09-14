@@ -33,11 +33,17 @@ function that calculates the intersection of obtaining this data with the variou
     if not isinstance(P, np.ndarray) or P.ndim != 1:
         raise TypeError('P must be a 1D numpy.ndarray')
     
-    if not isinstance(Pr, np.ndarray) or Pr.ndim != P.ndim:
+    if not isinstance(Pr, np.ndarray) or Pr.shape != P.shape:
         raise TypeError('Pr must be a numpy.ndarray with the same shape as P')
 
-    if not ((P <= 1).all() and (P >= 0).all()) or not (Pr <= 1).all() and (Pr >= 0).all():
-        raise ValueError('All values in {P} must be in the range [0, 1] where {P} is the incorrect variable')
+    Incorrect_var = None
+    if not ((P <= 1).all() and (P >= 0).all()):
+        Incorrect_var = 'P'
+    elif not (Pr <= 1).all() and (Pr >= 0).all():
+        Incorrect_var = 'Pr'
+    if Incorrect_var:
+        raise ValueError('All values in {} must be in the range [0, 1]'.format(Incorrect_var))
+
     if not np.isclose(sum(Pr), 1):
         raise ValueError('Pr must sum to 1 Hint: use numpy.isclose')
 
