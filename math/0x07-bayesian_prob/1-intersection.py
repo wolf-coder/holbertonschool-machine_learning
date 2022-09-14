@@ -39,7 +39,7 @@ function that calculates the intersection of obtaining this data with the variou
     Incorrect_var = None
     if not ((P <= 1).all() and (P >= 0).all()):
         Incorrect_var = 'P'
-    elif not (Pr <= 1).all() and (Pr >= 0).all():
+    if not (Pr <= 1).all() and (Pr >= 0).all():
         Incorrect_var = 'Pr'
     if Incorrect_var:
         raise ValueError('All values in {} must be in the range [0, 1]'.format(Incorrect_var))
