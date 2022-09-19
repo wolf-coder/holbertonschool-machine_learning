@@ -25,7 +25,7 @@ alues of X along each dimension in d
     Returns: a numpy.ndarray of shape (k, d) containing
 the initialized centroids for each cluster, or None on failure
     """
-    if not isinstance(X, np.ndarray) or X.ndim != 2:
+    if type(X) is not np.ndarray or X.ndim != 2:
         return None
     if not isinstance(k, int) or k < 1:
         return None
