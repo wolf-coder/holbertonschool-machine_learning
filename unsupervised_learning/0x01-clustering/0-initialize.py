@@ -27,7 +27,7 @@ the initialized centroids for each cluster, or None on failure
     """
     if not isinstance(X, np.ndarray) or X.ndim != 2:
         return None
-    if type(k) is not int or k < 1:
+    if not isinstance(k, int) or k < 1 or k > X.shape[0]:
         return None
     d = X.ndim
     Low = np.amin(X, axis=0)
