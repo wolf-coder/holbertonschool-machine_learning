@@ -6,9 +6,13 @@ import numpy as np
 
 
 def Get_clss(X, C):
-    """assigne each point to a cluster """
-
-    return np.array( [ np.argmin(np.sum(np.square(p - C), axis = 1), axis=0)  for p in X])
+    """
+    Assigne each point to a cluster
+    """
+    Xe = np.expand_dims(X, axis=1) # Expansion to ferform the co
+    D = np.sum(np.square(Xe - C), axis=2)
+    clss = np.argmin(D, axis=1)
+    return clss
 
 
 def kmeans(X, k, iterations=1000):
