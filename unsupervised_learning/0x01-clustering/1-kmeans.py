@@ -3,7 +3,20 @@
 Performs K-means on a dataset.
 """
 import numpy as np
-initialize = __import__('0-initialize').initialize
+def initialize(X, k):
+    """
+    Function that initializes cluster centroids for K-means:
+    """
+    if type(X) is not np.ndarray or len(X.shape) != 2:
+        return None
+    if type(k) is not int or k <= 0 or k > X.shape[0]:
+        return None
+    n, d = X.shape
+    low = np.amin(X, axis=0)
+    high = np.amax(X, axis=0)
+    centroids = np.random.uniform(low=low, high=high, size=(k, d))
+    return centroids
+
 
 def Get_clss(X, C):
     """assigne each point to a cluster """
