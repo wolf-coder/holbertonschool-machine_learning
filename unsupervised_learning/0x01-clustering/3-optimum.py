@@ -25,7 +25,7 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
         return None, None
     if type(iterations) is not int or iterations <= 0:
         return None, None
-    
+
     results = []
     Vars = []
     for i in range(kmin, kmax + 1):
@@ -35,6 +35,5 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
         Vars.append(Intra_variance)
 
     d_vars = np.abs(np.array(Vars) - Vars[0])
-    
-    return results, list(d_vars)
 
+    return results, list(d_vars)
