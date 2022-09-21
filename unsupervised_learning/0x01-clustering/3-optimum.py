@@ -24,6 +24,21 @@ Function that tests for the optimum number of clusters by variance:
         results is a list containing the outputs of K-means for each cluster size
         d_vars is a list containing the difference in variance from the smallest cluster size for each cluster size
     """
+    if type(X) is not np.ndarray or len(X.shape) != 2:
+        return None, None
+    if type(kmin) is not int or kmin <= 0:
+        return None, None
+    if kmax is None:
+        kmax = X.shape[0]
+    if kmax is not None and (type(kmax) is not int or kmax <= 0):
+        return None, None
+    if type(kmax) is not int or kmax <= 0:
+        return None, None
+    if kmin >= kmax:
+        return None, None
+    if type(iterations) is not int or iterations <= 0:
+        return None, None
+    
     results = []
     Vars = []
     for i in range(kmin, kmax + 1):
