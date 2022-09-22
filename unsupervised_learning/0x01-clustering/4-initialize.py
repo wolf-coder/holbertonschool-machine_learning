@@ -17,7 +17,7 @@ def initialize(X, k):
         pi is a numpy.ndarray of shape (k,) containing the priors for each cluster, initialized evenly
         m is a numpy.ndarray of shape (k, d) containing the centroid means for each cluster, initialized with K-means
         S is a numpy.ndarray of shape (k, d, d) containing the covariance matrices for each cluster, initialized as identity matrices
-    You should use kmeans = __import__('1-kmeans').kmeans
+
     """
     if type(X) is not np.ndarray or X.ndim != 2:
         return None, None, None
