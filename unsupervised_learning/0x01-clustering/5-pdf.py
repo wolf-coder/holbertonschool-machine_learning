@@ -18,13 +18,14 @@ def pdf(X, m, S):
 
     """
     
-    if type(X) is not np.ndarray or X.ndim != 2:
+    if not isinstance(X, np.ndarray) or X.ndim != 2:
         return None
     d = X.shape[1]
-    if type(m) is not np.ndarray or m.ndim != 1 or m.shape[0] != d:
+    if not isinstance(m, np.ndarray) or m.ndim != 1 or m.shape[0] != d:
         return None
-    if type(S) is not np.ndarray or S.ndim != 2 or S.shape != (d, d):
+    if not isinstance(S, np.ndarray) or S.ndim != 2 or S.shape != (d, d):
         return None
+
     X_m = X - m
     Part1 = np.linalg.inv(S) @ X_m.T
     exp = - 0.5 * np.sum(X_m * Part1.T, axis=1)
