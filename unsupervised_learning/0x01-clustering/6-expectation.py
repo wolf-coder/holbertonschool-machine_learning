@@ -29,11 +29,7 @@ Function that calculates the expectation step in the EM algorithm for a GMM:Func
 
     k = pi.shape[0]
 
-    if m.shape[0] != k or m.shape[1] != d:
-        return None, None
 
-    if S.shape[0] != k or S.shape[1] != d or S.shape[2] != d:
-        return None, None
 
     if not np.isclose([np.sum(pi)], [1])[0]:
         return None, None
