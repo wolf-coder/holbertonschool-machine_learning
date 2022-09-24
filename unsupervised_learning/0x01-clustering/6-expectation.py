@@ -23,6 +23,16 @@ posterior probabilities
 for each data point in each cluster
         l is the total log likelihood
     """
+    if type(X) is not np.ndarray or X.ndim != 2:
+        return None, None
+    if type(pi) is not np.ndarray or len(pi.shape) != 1:
+        return None, None
+    if type(m) is not np.ndarray or m.ndim != 2:
+        return None, None
+    if type(S) is not np.ndarray or S.ndim != 3:
+        return None, None
+    if not np.isclose([np.sum(pi)], [1])[0]:
+        return None, None
 
     n = X.shape[0]  # Number of data points
     k = pi.shape[0]  # Pi contains the priors for each cluster
