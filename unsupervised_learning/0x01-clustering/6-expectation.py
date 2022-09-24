@@ -2,26 +2,15 @@
 """
 Calculating the expectation step in the EM algorithm for a GMM.
 """
+
 import numpy as np
 pdf = __import__('5-pdf').pdf
 
 
 def expectation(X, pi, m, S):
     """
-Function that calculates the expectation step in the EM algorithm for a GMM:
+Function that calculates the expectation step in the EM algorithm for a GMM:Function that calculates the expectation step in the EM algorithm for a GMM:
 
-    X is a numpy.ndarray of shape (n, d) containing the data set
-    pi is a numpy.ndarray of shape (k,) containing the priors for each cluster
-    m is a numpy.ndarray of shape (k, d) containing the centroid
-means for each cluster
-    S is a numpy.ndarray of shape (k, d, d) containing the covariance
-matrices for each cluster
-    You may use at most 1 loop
-    Returns: g, l, or None, None on failure
-        g is a numpy.ndarray of shape (k, n) containing the
-posterior probabilities
-for each data point in each cluster
-        l is the total log likelihood
     """
     if type(X) is not np.ndarray or X.ndim != 2:
         return None, None
@@ -33,17 +22,28 @@ for each data point in each cluster
         return None, None
     if not np.isclose([np.sum(pi)], [1])[0]:
         return None, None
+    n, d = X.shape
 
-    n = X.shape[0]  # Number of data points
-    k = pi.shape[0]  # Pi contains the priors for each cluster
-    Posteriors = np.zeros((k, n))  # Initialization
+    if pi.shape[0] > n:
+        return None, None
+
+    k = pi.shape[0]
+
+    if m.shape[0] != k or m.shape[1] != d:
+        return None, None
+
+    if S.shape[0] != k or S.shape[1] != d or S.shape[2] != d:
+        return None, None
+
+    if not np.isclose([np.sum(pi)], [1])[0]:
+        return None, None
+
+    g = np.zeros((k, n))
 
     for i in range(k):
-        Posteriors[i] = pi[i] * pdf(X, m[i], S[i])
+        g[i] = pi[i] * pdf(X, m[i], S[i])
 
-    # Posteriors is the total log likelihood
-    Log = np.sum(Posteriors, axis=0, keepdims=True)
+    s_tg = np.sum(g, axis=0, keepdims=True)
+    g /= s_tg
 
-    Posteriors = Posteriors / Log
-    Log = np.sum(np.log(Log))
-    return Posteriors, Log
+    return g, np.sum(np.log(s_tg))
