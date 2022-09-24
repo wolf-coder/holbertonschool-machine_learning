@@ -9,10 +9,6 @@ import numpy as np
 def maximization(X, g):
     """
     maximize the log-likelihood of a GMM:
-    args:
-        X: is a numpy.ndarray of shape (n, d) containing the data set
-        g: is a numpy.ndarray of shape (k, n) containing the posterior probabilities for each data point in each cluster
-    return (numpy.ndarray): the means for each cluster, or None on failure
     """
     if not isinstance(X, np.ndarray) or not isinstance(g, np.ndarray):
         return (None, None, None)
