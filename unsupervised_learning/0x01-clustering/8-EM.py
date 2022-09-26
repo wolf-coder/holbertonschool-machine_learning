@@ -56,20 +56,20 @@ for each data point in each cluster
     pi, m, S = initialize(X, k)
     Log = None
     for i in range(iterations):
-        Posterior, l = expectation(X, pi, m, S)
-        if Log is not None and np.abs(l - Log) <= tol:
+        Posterior, lu = expectation(X, pi, m, S)
+        if Log is not None and np.abs(lu - Log) <= tol:
             if verbose:
                 print('Log Likelihood after {} iterations: {}'.
-                      format(i, l.round(5)))
+                      format(i, lu.round(5)))
             break
         if verbose and i % 10 == 0:
             print('Log Likelihood after {} iterations: {}'.
-                  format(i, l.round(5)))
+                  format(i, lu.round(5)))
         pi, m, S = maximization(X, Posterior)
-        Log = l
+        Log = lu
     else:
-        Posterior, l = expectation(X, pi, m, S)
+        Posterior, lu = expectation(X, pi, m, S)
         if verbose:
             print('Log Likelihood after {} iterations: {}'.
-                  format(iterations, l.round(5)))
-    return pi, m, S, Posterior, l
+                  format(iterations, lu.round(5)))
+    return pi, m, S, Posterior, lu
