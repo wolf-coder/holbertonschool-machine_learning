@@ -2,7 +2,7 @@
 """
 Performing K-means on a dataset.
 """
-import sklearn.cluster as Sc 
+import sklearn.cluster
 
 
 def kmeans(X, k):
@@ -20,7 +20,7 @@ the cluster in C
 that each data point belongs to.
     """
 
-    kmeans = Sc.KMeans(n_clusters=k)
+    kmeans = sklearn.cluster.KMeans(n_clusters=k)
     kmeans.fit(X)
     y_kmeans = kmeans.predict(X)
     return kmeans.cluster_centers_, y_kmeans
