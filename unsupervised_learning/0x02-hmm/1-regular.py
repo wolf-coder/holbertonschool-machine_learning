@@ -30,4 +30,4 @@ Function that determines the steady state probabilities of a regular markov chai
         steady_state_prob = np.linalg.solve(QxQ,Ones)
     except np.linalg.LinAlgError:
         return None
-    return steady_state_prob
+    return steady_state_prob.reshape(1, n)
