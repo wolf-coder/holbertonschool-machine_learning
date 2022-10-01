@@ -3,11 +3,14 @@
 Determine if a markov chain is absorbing.
 """
 import numpy as np
+
+
 def absorbing(P):
     """
 function that determines if a markov chain is absorbing:p
 
-    P is a is a square 2D numpy.ndarray of shape (n, n) representing the STANDARD TRANSITION MATRIX
+    P is a is a square 2D numpy.ndarray of shape (n, n) representing the
+STANDARD TRANSITION MATRIX
         P[i, j] is the probability of transitioning from state i to state j
         n is the number of states in the markov chain
     Returns: True if it is absorbing, or False on failure
@@ -16,34 +19,33 @@ function that determines if a markov chain is absorbing:p
         return False
     if P.ndim != 2 or P.shape[0] != P.shape[1]:
         return False
-    
+
     if not np.allclose(np.sum(P, axis=1), 1):  # Check Markov or not
         return None
 
     n = P.shape[0]
 
-    
-    Diag  = np.diag(P)  #  get the matrix diagonal.
+    Diag = np.diag(P)  # get the matrix diagonal.
 
-    if np.all(Diag != 1): #  None steady state.
+    if np.all(Diag != 1):  # None steady state.
         return False
 
-    if np.all(Diag == 1): #  all Steady state.
+    if np.all(Diag == 1):  # all Steady state.
         return True
-    
+
     """
     Get the limiting transitioning matrix P_l
     """
     n = P.shape[0]
-    #  Get I Diag shape
+    # Get I Diag shape
     Diag = np.diag(P)
     I_diag_len = np.count_nonzero(Diag == 1)
-    
-    #  Get Q
-    Q = P[slice(I_diag_len,n),slice(I_diag_len,n)]
-    #  F = (I -Q).inverse
+
+    # Get Q
+    Q = P[slice(I_diag_len, n), slice(I_diag_len, n)]
+    # F = (I -Q).inverse
     try:
         F = np.linalg.inv(np.eye(Q.shape[0]) - Q)
-    except np.linalg.LinAlgError:
+    except np.linalg.LinAlgError:  # singular matrix Error (determinant = ZERO)
         return False
     return True
