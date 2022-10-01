@@ -35,13 +35,10 @@ function that determines if a markov chain is absorbing:p
     Get the limiting transitioning matrix P_l
     """
     n = P.shape[0]
-    #  Get I
+    #  Get I Diag shape
     Diag = np.diag(P)
     I_diag_len = np.count_nonzero(Diag == 1)
-    I = np.identity(I_diag_len)
     
-    #  Get R
-    R = P[slice(I_diag_len,n),slice(I_diag_len)]
     #  Get Q
     Q = P[slice(I_diag_len,n),slice(I_diag_len,n)]
     #  F = (I -Q).inverse
@@ -49,7 +46,4 @@ function that determines if a markov chain is absorbing:p
         F = np.linalg.inv(np.eye(Q.shape[0]) - Q)
     except np.linalg.LinAlgError:
         return False
-    #  F @ R
-    FR = F @ R
-    
     return True
