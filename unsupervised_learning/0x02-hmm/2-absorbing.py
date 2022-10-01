@@ -34,7 +34,8 @@ STANDARD TRANSITION MATRIX
         return True
 
     """
-    Get the limiting transitioning matrix P_l
+    Get F from the limiting transitioning matrix : If F is Singular then P is
+not absorbing
     """
     n = P.shape[0]
     # Get I Diag shape
@@ -43,7 +44,7 @@ STANDARD TRANSITION MATRIX
 
     # Get Q
     Q = P[slice(I_diag_len, n), slice(I_diag_len, n)]
-    # F = (I -Q).inverse
+    # F = (I - Q).inverse
     try:
         F = np.linalg.inv(np.eye(Q.shape[0]) - Q)
     except np.linalg.LinAlgError:  # singular matrix Error (determinant = ZERO)
