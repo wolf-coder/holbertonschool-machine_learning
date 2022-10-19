@@ -4,9 +4,11 @@ Calculates the most likely sequence of hidden states for a hidden markov model.
 """
 import numpy as np
 
+
 def viterbi(Observation, Emission, Transition, Initial):
     """
-    Observation is a numpy.ndarray of shape (T,) that contains the index of the observation
+    Observation is a numpy.ndarray of shape (T,) that contains
+the index of the observation
         T is the number of observations
     Emission is a numpy.ndarray of shape (N, M) containing the
 emission probability of a specific observation given a hidden state
@@ -29,19 +31,19 @@ likely sequence of hidden states
     N = Emission.shape[0]
     V = np.zeros((N, T))
     try:
-        V[:, 0] = Initial.T * Emission[:, Observation[0]] #  Initialisaton Step
+        V[:, 0] = Initial.T * Emission[:, Observation[0]]  # Initialisaton Step
         backpointer = np.zeros((N, T))
-        for t in range(1, T): # Recursion step
+        for t in range(1, T):  # Recursion step
             for s in range(N):
                 tr = Transition[:, s]
                 em = Emission[s, Observation[t]]
                 V[s, t] = np.max(V[:, t - 1] * tr * em)
                 backpointer[s, t] = np.argmax(V[:, t - 1] * tr * em)
-        bestPath = [np.argmax(V[:, T - 1])] #  Termination step
+        bestPath = [np.argmax(V[:, T - 1])]  # Termination step
         for t in range(T - 1, 0, -1):
             bestPath.append(int(backpointer[bestPath[-1], t]))
         bestPath = bestPath[::-1]
-        bestPathProb = np.max(V[:, T - 1]) #  Termination step
+        bestPathProb = np.max(V[:, T - 1])  # Termination step
         return bestPath, bestPathProb
     except Exception:
         return None, None
