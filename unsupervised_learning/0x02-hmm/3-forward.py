@@ -24,7 +24,7 @@ def forward(Observation, Emission, Transition, Initial):
 
     T = Observation.shape[0]
     N = Transition.shape[0]
-    F = np.zeros((N, T))
+    F = np.ones((N, T))
     try:
         F[:, 0] = Initial.T * Emission[:, Observation[0]]
         for t in range(1, T):
