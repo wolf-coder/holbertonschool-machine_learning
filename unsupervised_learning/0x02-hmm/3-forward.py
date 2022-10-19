@@ -21,10 +21,11 @@ def forward(Observation, Emission, Transition, Initial):
         F is a numpy.ndarray of shape (N, T) containing the forward path probabilities
             F[i, j] is the probability of being in hidden state i at time j given the previous observations
     """
+
+    T = Observation.shape[0]
+    N = Transition.shape[0]
+    F = np.zeros((N, T))
     try:
-        T = Observation.shape[0]
-        N = Transition.shape[0]
-        F = np.zeros((N, T))
         F[:, 0] = Initial.T * Emission[:, Observation[0]]
         for t in range(1, T):
             for s in range(N):
