@@ -19,23 +19,23 @@ def viterbi(Observation, Emission, Transition, Initial):
         path is the a list of length T containing the most likely sequence of hidden states
         P is the probability of obtaining the path sequence
     """
+    T = Observation.shape[0]
+    N = Emission.shape[0]
+    V = np.zeros((N, T))
     try:
-        T = Observation.shape[0]
-        N = Emission.shape[0]
-        viterbi = np.zeros((N, T))
-        viterbi[:, 0] = Initial.T * Emission[:, Observation[0]]
+        V[:, 0] = Initial.T * Emission[:, Observation[0]] #  Initialisaton Step
         backpointer = np.zeros((N, T))
-        for t in range(1, T):
+        for t in range(1, T): # recursion step
             for s in range(N):
                 tr = Transition[:, s]
                 em = Emission[s, Observation[t]]
-                viterbi[s, t] = np.max(viterbi[:, t - 1] * tr * em)
-                backpointer[s, t] = np.argmax(viterbi[:, t - 1] * tr * em)
-        path = [np.argmax(viterbi[:, T - 1])]
+                V[s, t] = np.max(V[:, t - 1] * tr * em)
+                backpointer[s, t] = np.argmax(V[:, t - 1] * tr * em)
+        bestPath = [np.argmax(V[:, T - 1])] #  termination step
         for t in range(T - 1, 0, -1):
-            path.append(int(backpointer[path[-1], t]))
-        path = path[::-1]
-        p = np.max(viterbi[:, T - 1])
-        return path, p
+            bestPath.append(int(backpointer[bestPath[-1], t]))
+        bestPath = bestPath[::-1]
+        bestPathProb = np.max(V[:, T - 1]) #  termination step
+        return bestPath, bestPathProb
     except Exception:
         return None, None
