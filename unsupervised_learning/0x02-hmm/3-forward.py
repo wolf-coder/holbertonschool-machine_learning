@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-
+"""
+Performing the forward algorithm for a hidden markov model.
+"""
 import numpy as np
 
 def forward(Observation, Emission, Transition, Initial):
@@ -19,20 +21,21 @@ def forward(Observation, Emission, Transition, Initial):
     Returns: P, F, or None, None on failure
         P is the likelihood of the observations given the model
         F is a numpy.ndarray of shape (N, T) containing the forward path probabilities
-            F[i, j] is the probability of being in hidden state i at time j given the previous observations
+        F[i, j] is the probability of being in hidden state i at time j given the previous observations
     """
 
     T = Observation.shape[0]
     N = Transition.shape[0]
-    F = np.ones((N, T))
+    F = np.ones((N, T))  # create a probability matrix forward[N,T]
     try:
-        F[:, 0] = Initial.T * Emission[:, Observation[0]]
-        for t in range(1, T):
+        F[:, 0] = Initial.T * Emission[:, Observation[0]] #  Initialisaton Step.
+        for t in range(1, T):  # Recursion step.
             for s in range(N):
                 tr = Transition[:, s]
+                tr = Transition[slice(None), s]
                 em = Emission[s, Observation[t]]
                 F[s, t] = np.sum(F[:, t - 1] * tr * em)
-        P = np.sum(F[:, T - 1])
+        P = np.sum(F[:, T - 1])#  Termination Step.
         return P, F
     except Exception:
         return None, None
