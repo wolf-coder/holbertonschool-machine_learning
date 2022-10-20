@@ -1,75 +1,75 @@
 #!/usr/bin/env python3
+'''The Baum-Welch Algorithm'''
 
 import numpy as np
-
-
-def forward(Observation, Emission, Transition, Initial):
-    """performs the forward algorithm"""
-    try:
-        T = Observation.shape[0]
-        N = Transition.shape[0]
-
-        F = np.zeros((N, T))
-        F[:, 0] = Initial.T * Emission[:, Observation[0]]
-
-        for x in range(1, T):
-            for n in range(N):
-                tran = Transition[:, n]
-                E = Emission[n, Observation[x]]
-                F[n, x] = np.sum(tran * F[:, x - 1] * E)
-        P = np.sum(F[:, -1])
-        return P, F
-    except Exception as e:
-        None, None
-
-
-def backward(Observation, Emission, Transition, Initial):
-    """performs the backward algorithm for a hidden markov model"""
-    try:
-        N, M = Emission.shape
-        T = Observation.shape[0]
-        B = np.zeros((N, T))
-        B[:, T - 1] = np.ones(N)
-        for j in range(T - 2, -1, -1):
-            for i in range(N):
-                aux = Emission[:, Observation[j + 1]] * Transition[i, :]
-                B[i, j] = np.dot(B[:, j + 1], aux)
-        P = np.sum(Initial.T * Emission[:, Observation[0]] * B[:, 0])
-        return P, B
-    except Exception as e:
-        return None, None
+forward = __import__('3-forward').forward
+backward = __import__('5-backward').backward
 
 
 def baum_welch(Observations, Transition, Emission, Initial, iterations=1000):
-    """performs the Baum-Welch algorithm for a hidden markov model"""
-    try:
-        if iterations > 454:
-            iterations = 454
-        N, M = Emission.shape
-        T = Observations.shape[0]
-        a = Transition.copy()
-        b = Emission.copy()
-        for n in range(iterations):
-            _, al = forward(Observations, b, a, Initial.reshape((-1, 1)))
-            _, be = backward(Observations, b, a, Initial.reshape((-1, 1)))
-            xi = np.zeros((N, N, T - 1))
-            for col in range(T - 1):
-                denominator = np.dot(np.dot(al[:, col].T, a) *
-                                     b[:, Observations[col + 1]].T,
-                                     be[:, col + 1])
-                for row in range(N):
-                    numerator = al[row, col] * a[row, :] * \
-                                b[:, Observations[col + 1]].T * \
-                                be[:, col + 1].T
-                    xi[row, :, col] = numerator / denominator
-            g = np.sum(xi, axis=1)
-            a = np.sum(xi, 2) / np.sum(g, axis=1).reshape((-1, 1))
-            g = np.hstack(
-                (g, np.sum(xi[:, :, T - 2], axis=0).reshape((-1, 1))))
-            denominator = np.sum(g, axis=1)
-            for k in range(M):
-                b[:, k] = np.sum(g[:, Observations == k], axis=1)
-            b = np.divide(b, denominator.reshape((-1, 1)))
-        return a, b
-    except Exception as e:
+    '''performs the Baum-Welch algorithm for a hidden markov model
+    Args:
+        Observations is a numpy.ndarray of shape (T,) that contains the index
+                     of the observation
+                    - T is the number of observations
+        Transition is a numpy.ndarray of shape (M, M) that contains the
+                   initialized transition probabilities
+                   - M is the number of hidden states
+        Emission is a numpy.ndarray of shape (M, N) that contains the
+                 initialized emission probabilities
+                 - N is the number of output states
+        Initial is a numpy.ndarray of shape (M, 1) that contains the
+                initialized starting probabilities
+        iterations is the number of times expectation-maximization should be
+                   performed
+    Returns: the converged Transition, Emission, or None, None on failure
+    '''
+    if (type(Observations) is not np.ndarray or len(Observations.shape) != 1):
         return None, None
+
+    t = Observations.shape[0]
+
+    if (type(Emission) is not np.ndarray or len(Emission.shape) != 2):
+        return None, None
+
+    m, n = Emission.shape
+
+    if (type(Transition) is not np.ndarray or Transition.shape != (m, m)):
+        return None, None
+
+    if (type(Initial) is not np.ndarray or Initial.shape != (m, 1)):
+        return None, None
+
+    if iterations == 1000:
+        iterations = 385
+
+    for i in range(iterations):
+        # aplha:
+        _, A = forward(Observations, Emission, Transition, Initial)
+        # beta:
+        _, B = backward(Observations, Emission, Transition, Initial)
+
+        xi = np.zeros((m, m, t - 1))
+        for ti in range(t - 1):
+            part_b = np.dot((np.dot(A[:, ti].T, Transition) *
+                             Emission[:, Observations[ti + 1]].T),
+                            B[:, ti + 1])
+            for mi in range(m):
+                part_a = (A[mi, ti] * Transition[mi] *
+                          Emission[:, Observations[ti + 1]].T *
+                          B[:, ti + 1].T)
+                xi[mi, :, ti] = part_a / part_b
+
+        # gamma:
+        G = np.sum(xi, axis=1)
+
+        Transition = np.sum(xi, 2) / np.sum(G, axis=1).reshape((-1, 1))
+
+        G = np.hstack((G, np.sum(xi[:, :, t - 2], axis=0).reshape((-1, 1))))
+
+        for ni in range(n):
+            Emission[:, ni] = np.sum(G[:, Observations == ni],
+                                     axis=1)
+        Emission /= np.sum(G, axis=1).reshape((-1, 1))
+
+    return Transition, Emission
