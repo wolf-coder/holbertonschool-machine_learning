@@ -2,6 +2,8 @@
 """
 Performing the Baum-Welch algorithm for a hidden markov model.
 """
+
+import numpy as np
 def backward(Observation, Emission, Transition, Initial):
     """
     performs the backward algorithm for a hidden markov model
@@ -44,7 +46,6 @@ def forward(Observation, Emission, Transition, Initial):
         return None, None
 
 
-import numpy as np
 
 def baum_welch(Observations, Transition, Emission, Initial, iterations=1000):
     """
