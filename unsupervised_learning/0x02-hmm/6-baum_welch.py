@@ -4,6 +4,8 @@ Performing the Baum-Welch algorithm for a hidden markov model.
 """
 
 import numpy as np
+
+
 def backward(Observation, Emission, Transition, Initial):
     """
     performs the backward algorithm for a hidden markov model
@@ -24,6 +26,7 @@ def backward(Observation, Emission, Transition, Initial):
         return Pis, B
     except Exception:
         return None, None
+
 
 def forward(Observation, Emission, Transition, Initial):
     """
@@ -46,14 +49,11 @@ def forward(Observation, Emission, Transition, Initial):
         return None, None
 
 
-
 def baum_welch(Observations, Transition, Emission, Initial, iterations=1000):
     """
     Returns: the converged Transition, Emission, or None, None on failure
     """
     try:
-        if iterations > 454:
-            iterations = 364
         N, M = Emission.shape
         T = Observations.shape[0]
         a = Transition.copy()
