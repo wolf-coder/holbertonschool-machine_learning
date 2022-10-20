@@ -1,55 +1,47 @@
 #!/usr/bin/env python3
-"""
-Performing the Baum-Welch algorithm for a hidden markov model.
-"""
-def backward(Observation, Emission, Transition, Initial):
-    """
-    performs the backward algorithm for a hidden markov model
-    """
+
+import numpy as np
+
+
+def forward(Observation, Emission, Transition, Initial):
+    """performs the forward algorithm"""
     try:
         T = Observation.shape[0]
         N = Transition.shape[0]
 
-        B = np.zeros((N, T))
-        B[:, T - 1] = np.ones((N))
+        F = np.zeros((N, T))
+        F[:, 0] = Initial.T * Emission[:, Observation[0]]
 
-        for t in range(T - 2, -1, -1):
-            for j in range(N):
-                B[j, t] = (B[:, t + 1] * Emission[:, Observation[t + 1]]) @\
-                    (Transition[j, :])
-
-        Pis = np.sum(np.sum(Initial.T * Emission[:, Observation[0]] * B[:, 0]))
-        return Pis, B
-    except Exception:
-        return None, None
-
-def forward(Observation, Emission, Transition, Initial):
-    """
-    Performing the forward algorithm for a hidden markov model.
-    """
-
-    T = Observation.shape[0]
-    N = Transition.shape[0]
-    F = np.ones((N, T))  # create a probability matrix forward[N,T]
-    try:
-        F[:, 0] = Initial.T * Emission[:, Observation[0]]  # Initialisaton Step
-        for t in range(1, T):  # Recursion step.
-            for s in range(N):
-                tr = Transition[slice(None), s]
-                em = Emission[s, Observation[t]]
-                F[s, t] = np.sum(F[:, t - 1] * tr * em)
-        P = np.sum(F[:, T - 1])  # Termination Step.
+        for x in range(1, T):
+            for n in range(N):
+                tran = Transition[:, n]
+                E = Emission[n, Observation[x]]
+                F[n, x] = np.sum(tran * F[:, x - 1] * E)
+        P = np.sum(F[:, -1])
         return P, F
-    except Exception:
+    except Exception as e:
+        None, None
+
+
+def backward(Observation, Emission, Transition, Initial):
+    """performs the backward algorithm for a hidden markov model"""
+    try:
+        N, M = Emission.shape
+        T = Observation.shape[0]
+        B = np.zeros((N, T))
+        B[:, T - 1] = np.ones(N)
+        for j in range(T - 2, -1, -1):
+            for i in range(N):
+                aux = Emission[:, Observation[j + 1]] * Transition[i, :]
+                B[i, j] = np.dot(B[:, j + 1], aux)
+        P = np.sum(Initial.T * Emission[:, Observation[0]] * B[:, 0])
+        return P, B
+    except Exception as e:
         return None, None
 
-
-import numpy as np
 
 def baum_welch(Observations, Transition, Emission, Initial, iterations=1000):
-    """
-    Returns: the converged Transition, Emission, or None, None on failure
-    """
+    """performs the Baum-Welch algorithm for a hidden markov model"""
     try:
         if iterations > 454:
             iterations = 454
