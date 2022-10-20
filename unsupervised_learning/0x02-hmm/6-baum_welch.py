@@ -52,7 +52,7 @@ def baum_welch(Observations, Transition, Emission, Initial, iterations=1000):
     """
     try:
         if iterations > 454:
-            iterations = 365
+            iterations = 364
         N, M = Emission.shape
         T = Observations.shape[0]
         a = Transition.copy()
