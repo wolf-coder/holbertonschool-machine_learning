@@ -27,7 +27,7 @@ class BidirectionalCell:
         softmax
         """
         exp = np.exp(x - np.max(x))
-        return exp / exp.sum(axis=1, keepdims=True)
+        return exp / exp.sum(axis=2, keepdims=True)
 
     def forward(self, h_prev, x_t):
         """
