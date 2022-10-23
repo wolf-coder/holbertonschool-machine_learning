@@ -14,10 +14,10 @@ class LSTMCell:
         """
         init
         """
-        self.Wf = np.random.normal(0.0, 1.0, (i+h, h))
-        self.Wu = np.random.normal(0.0, 1.0, (i+h, h))
-        self.Wc = np.random.normal(0.0, 1.0, (i+h, h))
-        self.Wo = np.random.normal(0.0, 1.0, (i+h, h))
+        self.Wf = np.random.normal(0.0, 1.0, (i + h, h))
+        self.Wu = np.random.normal(0.0, 1.0, (i + h, h))
+        self.Wc = np.random.normal(0.0, 1.0, (i + h, h))
+        self.Wo = np.random.normal(0.0, 1.0, (i + h, h))
         self.Wy = np.random.normal(0.0, 1.0, (h, o))
         self.bf = np.zeros((1, h))
         self.bu = np.zeros((1, h))
@@ -46,7 +46,7 @@ class LSTMCell:
         """
         forgate = self.sigmoid(
             np.matmul((np.concatenate(
-                    (h_prev, x_t), axis=1)), self.Wf) + self.bf)
+                (h_prev, x_t), axis=1)), self.Wf) + self.bf)
         ugatee = self.sigmoid(
             np.matmul((np.concatenate(
                 (h_prev, x_t), axis=1)), self.Wu) + self.bu)
@@ -59,4 +59,5 @@ class LSTMCell:
                 (h_prev, x_t), axis=1)), self.Wo) + self.bo)
         h_next = output_gate * np.tanh(c_next)
         y = self.softmax(self.by + np.matmul(h_next, self.Wy))
-        return h_next, c_next,  self.softmax(self.by + np.matmul(h_next, self.Wy))
+        return h_next, c_next, self.softmax(
+            self.by + np.matmul(h_next, self.Wy))
