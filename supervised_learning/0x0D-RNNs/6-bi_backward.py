@@ -33,6 +33,6 @@ class BidirectionalCell:
         """
         backward
         """
-        x =  np.concatenate((h_next, x_t), axis=1)
+        x = np.concatenate((h_next, x_t), axis=1)
         h_prev = np.tanh(np.matmul(x, self.Whb) + self.bhb)
         return h_prev
