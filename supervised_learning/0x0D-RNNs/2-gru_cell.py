@@ -53,4 +53,3 @@ class GRUCell:
                 ((resgate * h_prev), x_t), axis=1)), self.Wh) + self.bh)
         h_next = h_prev * (1 - ugate) + ugate * cmc
         return h_next, self.softmax(self.by + np.matmul(h_next, self.Wy))
-
