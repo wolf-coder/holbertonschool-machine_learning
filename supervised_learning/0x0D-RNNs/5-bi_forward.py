@@ -14,12 +14,12 @@ class BidirectionalCell:
         """ 
         init
         """
-        self.Whf = np.random.normal(0.0, 1.0, (i+h, h))
-        self.Whb = np.random.normal(0.0, 1.0, (i+h, h))
-        self.Wy = np.random.normal(0.0, 1.0, (2*h, o))
         self.bhf = np.zeros((1, h))
         self.bhb = np.zeros((1, h))
         self.by = np.zeros((1, o))
+        self.Whf = np.random.normal(0.0, 1.0, (i+h, h))
+        self.Whb = np.random.normal(0.0, 1.0, (i+h, h))
+        self.Wy = np.random.normal(0.0, 1.0, (2*h, o))
 
     def forward(self, h_prev, x_t):
         """
