@@ -6,7 +6,7 @@ import numpy as np
 
 
 def deep_rnn(rnn_cells, X, h_0):
-    """ 
+    """
     function that performs forward propagation for a deep RNN
     rnn_cells: list of RNNCell instances of length l.
         X: the data to be used,
@@ -14,14 +14,14 @@ def deep_rnn(rnn_cells, X, h_0):
             t: maximum number of time steps
             m: batch size
             i: dimensionality of the data
-        h_0: initial hidden state, given as a 
+        h_0: initial hidden state, given as a
         numpy.ndarray of shape (l, m, h)
             h: dimensionality of the hidden state
         Returns: H, Y"""
     t, m, i = X.shape
     l, m, h = h_0.shape
-    o = rnn_cells[l-1].by.shape[1]
-    H = np.empty((t+1, l, m, h))
+    o = rnn_cells[l - 1].by.shape[1]
+    H = np.empty((t + 1, l, m, h))
     Y = np.empty((t, m, o))
     H[0] = h_0
 
@@ -31,6 +31,6 @@ def deep_rnn(rnn_cells, X, h_0):
             x_t = x_prev
             h_prev = H[i, j]
             x_prev, y = rnn_cells[j].forward(h_prev, x_t)
-            H[i+1, j, :, :] = x_prev
+            H[i + 1, j, :, :] = x_prev
         Y[i] = y
     return H, Y
