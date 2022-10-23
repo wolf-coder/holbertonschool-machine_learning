@@ -23,7 +23,6 @@ class GRUCell:
         self.bh = np.zeros((1, h))
         self.by = np.zeros((1, o))
 
-
     @staticmethod
     def softmax(x):
         """
@@ -38,7 +37,6 @@ class GRUCell:
         sigmoid
         """
         return 1 / (1 + np.exp(-x))
-
 
     def forward(self, h_prev, x_t):
         """
