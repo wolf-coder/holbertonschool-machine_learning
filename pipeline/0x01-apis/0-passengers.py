@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Starships resources
 """
@@ -21,14 +20,14 @@ def availableShips(passengerCount):
         Request = RE.get(url)
         Data = Request.json()
         for result in Data['results']:
+            N_passenger = result['passengers']
             try:
-                N_passenger = result['passengers']
-                N_passenger = ''.join(N_passenger.split(','))
-                N_passenger = int(N_passenger)
+                N_passenger = int(N_passenger.replace(',', ''))
             except ValueError:
                 pass
             else:
-                Ship_List.append(result['name'])
+                if N_passenger >= passengerCount:
+                    Ship_List.append(result['name'])
         url = Data['next']
 
     return Ship_List
