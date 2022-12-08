@@ -14,10 +14,10 @@ import time
 
 if __name__ == '__main__':
     rockets = {}
-    launches_req = requests.get(
+    DATA = requests.get(
         'https://api.spacexdata.com/v4/launches'
     ).json()
-    for result in launches_req:
+    for result in DATA:
         rocket_id = result['rocket']
         if rocket_id in rockets:
             rockets[rocket_id] += 1
