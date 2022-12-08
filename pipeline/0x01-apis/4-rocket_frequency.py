@@ -14,8 +14,10 @@ if __name__ == '__main__':
     rockets = [
         rocket['name'] for rocket in requests.get(url).json()
     ]
-    url = 'https://api.spacexdata.com/v3/launches'
+    url = 'https://api.spacexdata.com/v4/launches'
     for rocket in rockets:
         params = {'rocket_name': rocket}
-        print('{}: {}'.format(rocket, len(requests.get(url, params=params).json())
+        print('{}: {}'.format(
+            rocket,
+            len(requests.get(url, params=params).json())
         ))
