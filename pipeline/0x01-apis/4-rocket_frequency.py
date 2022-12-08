@@ -7,18 +7,16 @@ launches separated by`:`
   + Order the result by the number launches (descending)
   + If multiple rockets have the same amount of launches, order them by alphabetic order (A to Z)
 """
-
 import requests
-import time
 
 
 if __name__ == '__main__':
     rockets = {}
-    launches_req = requests.get(
+    DATA = requests.get(
         'https://api.spacexdata.com/v4/launches'
     ).json()
-    for explorer in launches_req:
-        rocket_id = explorer['rocket']
+    for result in DATA:
+        rocket_id = result['rocket']
         if rocket_id in rockets:
             rockets[rocket_id] += 1
         else:
