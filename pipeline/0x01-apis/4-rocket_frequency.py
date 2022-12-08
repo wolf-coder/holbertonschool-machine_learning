@@ -13,20 +13,24 @@ import time
 
 
 if __name__ == '__main__':
-    Response = requests.get("https://api.spacexdata.com/v4/launches/")
     rockets = {}
-    DATA = Response.json()
-    for launch in DATA:
-        rocket = launch["rocket"]
-        rocket_url = "https://api.spacexdata.com/v4/rockets/" + rocket
-        r_rocket = requests.get(rocket_url)
-        r_rocket_get = r_rocket.json()
-        rocket_name = r_rocket_get["name"]
-        if rocket_name in rockets.keys():
-            rockets[rocket_name] = rockets[rocket_name] + 1
+    launches_req = requests.get(
+        'https://api.spacexdata.com/v4/launches'
+    ).json()
+    for explorer in launches_req:
+        rocket_id = explorer['rocket']
+        if rocket_id in rockets:
+            rockets[rocket_id] += 1
         else:
-            rockets[rocket_name] = 1
-    Sorted = sorted(rockets.items(), key=lambda x: x[0])
-    Sorted = sorted(Sorted, key=lambda x: x[1], reverse=True)
-    for i in sorting:
-        print("{}: {}".format(i[0], i[1]))
+            rockets[rocket_id] = 1
+    rockets = sorted(
+        rockets.items(), key=lambda rocket: rocket[1], reverse=True
+    )
+    for rocket in rockets:
+        rocket_name = requests.get(
+            'https://api.spacexdata.com/v4/rockets/' + rocket[0]
+        ).json()['name']
+        print('{}: {}'.format(
+            rocket_name,
+            rocket[1]
+        ))
