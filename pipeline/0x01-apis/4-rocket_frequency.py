@@ -17,8 +17,8 @@ if __name__ == '__main__':
     launches_req = requests.get(
         'https://api.spacexdata.com/v4/launches'
     ).json()
-    for explorer in launches_req:
-        rocket_id = explorer['rocket']
+    for result in launches_req:
+        rocket_id = result['rocket']
         if rocket_id in rockets:
             rockets[rocket_id] += 1
         else:
