@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """
+Exploiting the Species resouce
 """
 import requests as RE
 
