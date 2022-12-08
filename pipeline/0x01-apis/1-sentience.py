@@ -18,8 +18,7 @@ def sentientPlanets():
         DATA = Request.json()
         for result in DATA['results']:
             if result['designation'] == 'sentient' or\
-               result["designation"] == 'sentient':
-                #breakpoint()
+               result["classification"] == 'sentient':
                 if result['homeworld']:
                     Home_world = RE.get(result['homeworld']).json()['name']
                 else:
