@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Creating a function  that flips an image 
+Creating a function  that flips an image
 """
 import tensorflow as tf
 
