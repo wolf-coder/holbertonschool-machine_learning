@@ -5,6 +5,6 @@ Creating a function  that flips an image
 import tensorflow as tf
 
 
-def crop_image(image):
+def crop_image(image, size):
     """image: tf.Tensor"""
     return tf.image.random_crop(image, size)
