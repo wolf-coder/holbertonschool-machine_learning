@@ -12,19 +12,20 @@ def pca_color(image, alphas):
     alphas: tuple
     """
     reshped = np.reshape(image, (image.shape[0] * image.shape[1], 3))
-    m, stdv = np.mean(img, axis=0), np.std(img, axis=0)
-    f32 = reshped.astype('float32')
-    img -= np.mean(f32)
+    m, stdv = np.mean(reshped, axis=0), np.std(reshped, axis=0)
+    img = reshped.astype('float32')
+    img -= np.mean(img)
     img /= np.std(img)
-    cov = np.cov(img, rowvar=false)
-    lambdas, a = np.linlag.eig(cov)
+    cov = np.cov(img, rowvar=False)
+    lambdas, a = np.linalg.eig(cov)
     delta = np.dot(a, alphas * lambdas)
     pca = (
         (img +
          delta) *
-        std +
-        mean).reshape(
+        stdv +
+        m).reshape(
         image.shape[0],
         image.shape[1],
         3)
-    return np.maximum(np.minimum(pca, 255), 0).astype('unit8')
+    pca = np.maximum(np.minimum(pca, 255), 0).astype('uint8')
+    return pca
