@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Encoder for RNN 
+Encoder for RNN
 """
 import tensorflow as tf
 
@@ -9,6 +9,7 @@ class RNNEncoder(tf.keras.layers.Layer):
     """
     Inherits from tensorflow.keras.layers.Layer
     """
+
     def __init__(self, vocab, embedding, units, batch):
         """
         Constructor
