@@ -1,29 +1,39 @@
 #!/usr/bin/env python3
-import matplotlib.pyplot as plt
 import numpy as np
-
+import matplotlib.pyplot as plt
 np.random.seed(5)
 fruit = np.random.randint(0, 20, (4, 3))
+"""
+categories = ['Farrah', 'Fred', 'Felicia']
+fruits = ['apples', 'bananas', 'oranges', 'peaches']
+colors = ['red', 'yellow', '#ff8000', '#ffe5b4']
+for i, fruit_name in enumerate(fruits):
+    fruit_values = fruit[i, :]
+    if i == 0:
+        plt.bar(categories, fruit_values, width=0.5, color=colors[i], label=fruit_name)
+    else:
+        bottom_fruit_values = np.sum(fruit[:i, :], axis=0)
+        plt.bar(categories, fruit_values, width=0.5, bottom=bottom_fruit_values, color=colors[i], label=fruit_name)
+"""
+categories = ['Farrah', 'Fred', 'Felicia']
+apples = fruit[0, :]
+bananas = fruit[1, :]
+oranges = fruit[2, :]
+peaches = fruit[3, :]
+
+
+plt.bar(categories, apples, width=0.5, color='red', label='apples')
+plt.bar(categories, bananas, width=0.5, bottom=apples,
+        color='yellow', label='bananas')
+plt.bar(categories, oranges, width=0.5, bottom=np.add(
+    apples, bananas), color='#ff8000', label='oranges')
+plt.bar(categories, peaches, width=0.5, bottom=np.add(
+    np.add(apples, bananas), oranges), color='#ffe5b4', label='peaches')
+
 
 plt.ylabel('Quantity of Fruit')
+plt.ylim([0, 80])
 plt.title('Number of Fruit per Person')
+plt.legend()
 
-# Legend
-plt.legend((apples, bananas, oranges, peaches),
-           ('apples', 'bananas', 'oranges', 'peaches'))
-
-# Data
-apples = plt.bar(x, fruit[0], color='red', width=0.5)
-oranges = plt.bar(x, fruit[2], color='#ff8000',
-                  bottom=np.sum(fruit[:2], axis=0), width=0.5)
-peaches = plt.bar(x, fruit[3], color='#ffe5b4',
-                  bottom=np.sum(fruit[:3], axis=0), width=0.5)
-bananas = plt.bar(x, fruit[1], color='yellow',
-                  bottom=fruit[0], width=0.5)
-
-# sticks
-plt.xticks(np.arange(3), ('Farrah', 'Fred', 'Felicia'))
-plt.yticks(np.arange(0, 90, 10))
-
-# Plotting
 plt.show()
