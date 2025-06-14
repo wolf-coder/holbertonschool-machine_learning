@@ -30,13 +30,13 @@ class Neuron:
 
         Attributes
         ----------
-        __W : np.ndarray of shape (1, nx)
+        W : np.ndarray of shape (1, nx)
             The weights vector, initialized using a normal distribution.
 
-        __b : float
+        b : float
             The bias, initialized to 0.
 
-        __A : float
+        A : float
             The activated output, initialized to 0.
         """
 
