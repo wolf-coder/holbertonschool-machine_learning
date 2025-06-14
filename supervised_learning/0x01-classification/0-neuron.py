@@ -17,7 +17,8 @@ class Neuron:
         Parameters
         ----------
         nx : int
-            The number of input features to the neuron. Must be a positive integer.
+            The number of input features to the neuron.
+            Must be a positive integer.
 
         Raises
         ------
