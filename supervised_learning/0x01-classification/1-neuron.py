@@ -4,10 +4,12 @@ Neuron
 """
 import numpy as np
 
+
 class Neuron:
     """
     class Neuron that defines a single neuron performing binary classification
     """
+
     def __init__(self, nx) -> None:
         """
         nx is the number of input features to the neuron.
