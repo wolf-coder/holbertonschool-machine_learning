@@ -105,7 +105,7 @@ class Neuron:
         keeping output close to expected.
         """
         # Add a small epsilon for numerical stability to avoid log(0)
-        epsilon = 1e-8
+        epsilon = 1e-7
         m = Y.shape[1]
         loss_row = Y * np.log(A + epsilon) + (1 - Y) * np.log(1 - A + epsilon)
         cost = -np.sum(loss_row) / m
