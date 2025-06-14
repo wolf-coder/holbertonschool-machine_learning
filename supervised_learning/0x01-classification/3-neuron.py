@@ -101,7 +101,7 @@ class Neuron:
             The logistic regression cost.
         Notes
         -----
-        epsilon = 1e-8: a standard practice for avoiding log(0) while
+        epsilon = 1e-7: a standard practice for avoiding log(0) while
         keeping output close to expected.
         """
         # Add a small epsilon for numerical stability to avoid log(0)
