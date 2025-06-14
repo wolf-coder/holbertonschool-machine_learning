@@ -110,4 +110,3 @@ class Neuron:
         loss_row = Y * np.log(A + epsilon) + (1 - Y) * np.log(1 - A + epsilon)
         cost = -np.sum(loss_row) / m
         return cost
-
