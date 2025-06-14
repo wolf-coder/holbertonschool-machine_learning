@@ -12,8 +12,34 @@ class Neuron:
 
     def __init__(self, nx) -> None:
         """
-        nx is the number of input features to the neuron.
+        Initialize a single neuron for binary classification.
+
+        Parameters
+        ----------
+        nx : int
+            The number of input features to the neuron.
+            Must be a positive integer.
+
+        Raises
+        ------
+        TypeError
+            If `nx` is not an integer.
+
+        ValueError
+            If `nx` is less than 1.
+
+        Attributes
+        ----------
+        W : np.ndarray of shape (1, nx)
+            The weights vector, accessible via the property `W`.
+
+        b : float
+            The bias, accessible via the property `b`.
+
+        A : float
+            The activated output, accessible via the property `A`.
         """
+
         if not isinstance(nx, int):
             raise TypeError("nx must be an integer")
         if nx < 1:
