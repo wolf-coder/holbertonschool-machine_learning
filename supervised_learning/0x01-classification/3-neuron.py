@@ -83,7 +83,7 @@ class Neuron:
         self.__A = output
         return self.__A
 
-    def cost(self, Y, A):
+    def cost(self, Y, A) -> int:
         """
         Calculates the cost of the model using logistic regression.
 
@@ -104,9 +104,8 @@ class Neuron:
         epsilon = 1e-7: a standard practice for avoiding log(0) while
         keeping output close to expected.
         """
-        # Add a small epsilon for numerical stability to avoid log(0)
         epsilon = 1e-7
         m = Y.shape[1]
-        loss_row = Y * np.log(A) + (1 - Y) * np.log(1 - A + epsilon)
+        loss_row = Y * np.log(A) + (1 - Y) * np.log((1 + epsilon) - A)
         cost = -np.sum(loss_row) / m
         return cost
