@@ -137,7 +137,7 @@ class Neuron:
         predictions = np.where(activated_outputs >= 0.5, 1, 0)
         return predictions, self.cost(Y, activated_outputs)
 
-    def gradient_descent(self, X, Y, A, alpha=0.05):
+    def gradient_descent(self, X, Y, A, alpha=0.05) -> None:
         """
         Performs one pass of gradient descent on the neuron.
 
