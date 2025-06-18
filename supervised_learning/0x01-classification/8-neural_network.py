@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+Neural Network
+"""
 import numpy as np
 
 
@@ -67,7 +70,7 @@ class NeuralNetwork():
             raise TypeError("nodes must be an integer")
         if nodes < 1:
             raise ValueError("nodes must be positive integer")
-
+        self.nodes = nodes
         self.W1 = np.random.normal(size=(nodes, nx))
         self.b1 = np.zeros(shape=(nodes, 1))
         self.A1 = 0
