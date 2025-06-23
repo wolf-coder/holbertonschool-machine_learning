@@ -151,15 +151,32 @@ class NeuralNetwork():
 
     def cost(self, Y, A):
         """
-        - Calculates the cost of the model using logistic regression
-        - Y is a numpy.ndarray with shape (1, m) that contains the correct labels for the input data
-        - A is a numpy.ndarray with shape (1, m) containing the activated output of the neuron for each example
-        - To avoid division by zero errors, please use 1.0000001 - A instead of 1 - A
-        - Returns the cost
+            Calculates the cost of the model using logistic regression.
+
+            Parameters
+            ----------
+            Y : np.ndarray of shape (1, m)
+                Correct labels for the input data.
+
+            A : np.ndarray of shape (1, m)
+                Activated output of the neuron for each example.
+
+            Returns
+            -------
+            float
+                The logistic regression cost.
+
+            Notes
+            -----
+            To prevent division by zero in the logarithm,
+        a small value (epsilon) is added,
+        such that the expression becomes `1 + epsilon - A` instead of `1 - A`.
+            This ensures numerical stability during cost computation.
+        (as zero is not defined in log domain)
         """
-        SafeOne = 1.0000001 # to prevent log(0) as 0 is not defined for function log
-        m = Y.shape[1]
-        loss_row = (Y * np.log(A)) + ((1 - Y) * (np.log(SafeOne - A)))
-        cost = np.sum(loss_row) / (- m)
+        m = Y.shape[1]  # number of examples
+        epsilon = 1e-7
+
+        Loss_row = (Y * np.log(A)) + ((1-Y) * (np.log((1+epsilon) - A)))
+        cost = np.sum(Loss_row) / (-m)
         return cost
-        
