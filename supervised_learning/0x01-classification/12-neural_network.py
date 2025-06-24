@@ -149,7 +149,7 @@ class NeuralNetwork():
 
         return (self.__A1, self.__A2)
 
-    def cost(self, Y, A):
+    def cost(self, Y, A) -> int:
         """
             Calculates the cost of the model using logistic regression.
 
@@ -183,10 +183,31 @@ class NeuralNetwork():
 
     def evaluate(self, X, Y):
         """
-        Evaluate the neural network predictions
-        """
-        _, OutputA2 = NeuralNetwork.forward_prop(self, X)
-        predictions = np.where(OutputA2>=0.5,1,0)
-        cost = NeuralNetwork.cost(self,Y,OutputA2)
-        return (predictions, cost)
+        Evaluates the neural network’s predictions.
 
+        Parameters
+        ----------
+        X : np.ndarray of shape (nx, m)
+            Input data where:
+            - nx is the number of input features.
+            - m is the number of examples.
+
+        Y : np.ndarray of shape (1, m)
+            Correct labels for the input data.
+
+        Returns
+        -------
+        tuple
+            A tuple containing:
+            - predictions : np.ndarray of shape (1, m)
+                Binary predictions for each example.
+                Labels are 1 if the output activation >= 0.5, else 0.
+
+            - cost : float
+                The cost of the network's predictions.
+        """
+
+        self.forward_prop(X)  # (1, m) (self.__A2 gets updated)
+        cost = self.cost(Y, self.__A2)
+        prediction = np.where(self.__A2 >= 0.5, 1, 0)
+        return (prediction, cost)
