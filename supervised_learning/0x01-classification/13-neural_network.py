@@ -214,35 +214,60 @@ class NeuralNetwork():
 
     def gradient_descent(self, X, Y, A1, A2, alpha=0.05):
         """
-    - Calculates one pass of gradient descent on the neural network
-    - X is a numpy.ndarray with shape (nx, m) that contains the input data
-        - nx is the number of input features to the neuron
-        - m is the number of examples
-    - Y is a numpy.ndarray with shape (1, m) that contains the correct labels for the input data
-    - A1 is the output of the hidden layer
-    - A2 is the predicted output
-    - alpha is the learning rate
-    - Updates the private attributes __W1, __b1, __W2, and __b2
+        Performs one pass of gradient descent on the neural network.
+
+        Parameters
+        ----------
+        X : np.ndarray of shape (nx, m)
+            Input data where:
+            - nx is the number of input features.
+            - m is the number of examples.
+
+        Y : np.ndarray of shape (1, m)
+            Correct labels for the input data.
+
+        A1 : np.ndarray of shape (nodes, m)
+            Activated output from the hidden layer.
+
+        A2 : np.ndarray of shape (1, m)
+            Activated output from the output layer (predicted output).
+
+        alpha : float, optional
+            Learning rate used in gradient descent (default is 0.05).
+
+        Updates
+        -------
+        __W1 : np.ndarray
+            Weights of the hidden layer, updated in-place.
+
+        __b1 : np.ndarray
+            Biases of the hidden layer, updated in-place.
+
+        __W2 : np.ndarray
+            Weights of the output layer, updated in-place.
+
+        __b2 : float
+            Bias of the output layer, updated in-place.
         """
+
         m = X.shape[1]
         # calculate the derivatives
 
-        # 1. Compute the gradient of the loss with respect to the output layer's activations:
-        dZ2 = self.A2 - Y
+# 1. gradient of the loss with respect to the output layer's activations:
+        dZ2 = A2 - Y
 
-        # 2. Compute the gradients with respect to the weights and biases of the second layer:
+# 2. gradient with respect to the weights and biases of the second layer:
         dW2 = (dZ2 @ A1.T) / m
-        db2 = (np.sum(dZ2,axis=1,keepdims= True))/m
+        db2 = (np.sum(dZ2, axis=1, keepdims=True))/m
 
-        # 4. Compute the gradient of the loss with respect to the first layer's activations:
+# 4. gradient of the loss with respect to the first layer's activations:
         dZ1 = (self.W2.T @ dZ2) * (A1 * (1-A1))
 
-        # 5. Compute the gradients with respect to the weights and biases of the first layer:
+# 5. gradient with respect to the weights and biases of the first layer:
         dW1 = (dZ1 @ X.T) / m
-        db1 = ( np.sum(dZ1, axis=1, keepdims=True) )/m
+        db1 = (np.sum(dZ1, axis=1, keepdims=True))/m
 
-
-        # 3. Update the weights and biases for the second layer:
+# 3. Update the weights and biases for the second layer:
         self.__W2 -= (alpha * dW2)
         self.__b2 -= (alpha * db2)
 
