@@ -214,40 +214,15 @@ class NeuralNetwork():
 
     def gradient_descent(self, X, Y, A1, A2, alpha=0.05):
         """
-        Performs one pass of gradient descent on the neural network.
-
-        Parameters
-        ----------
-        X : np.ndarray of shape (nx, m)
-            Input data where:
-            - nx is the number of input features.
-            - m is the number of examples.
-
-        Y : np.ndarray of shape (1, m)
-            Correct labels for the input data.
-
-        A1 : np.ndarray of shape (nodes, m)
-            Activated output from the hidden layer.
-
-        A2 : np.ndarray of shape (1, m)
-            Activated output from the output layer (predicted output).
-
-        alpha : float, optional
-            Learning rate used in gradient descent (default is 0.05).
-
-        Updates
-        -------
-        __W1 : np.ndarray
-            Weights of the hidden layer, updated in-place.
-
-        __b1 : np.ndarray
-            Biases of the hidden layer, updated in-place.
-
-        __W2 : np.ndarray
-            Weights of the output layer, updated in-place.
-
-        __b2 : float
-            Bias of the output layer, updated in-place.
+    - Calculates one pass of gradient descent on the neural network
+    - X is a numpy.ndarray with shape (nx, m) that contains the input data
+        - nx is the number of input features to the neuron
+        - m is the number of examples
+    - Y is a numpy.ndarray with shape (1, m) that contains the correct labels
+    - A1 is the output of the hidden layer
+    - A2 is the predicted output
+    - alpha is the learning rate
+    - Updates the private attributes __W1, __b1, __W2, and __b2
         """
 
         m = X.shape[1]
