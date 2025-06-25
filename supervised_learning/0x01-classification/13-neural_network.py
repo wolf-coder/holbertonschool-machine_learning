@@ -212,25 +212,22 @@ class NeuralNetwork():
         prediction = np.where(self.__A2 >= 0.5, 1, 0)
         return (prediction, cost)
 
-
     def gradient_descent(self, X, Y, A1, A2, alpha=0.05):
-        """updates self W1,W2,b1,b2 by learning rate * gradient of cost
-        alpha = α = learning rate
-        This seems to be what's called 'backpropogation,'
-        due to how it uses the lessons learned from
-        corrected following layer/final answer to alter current layer's Anal answer to alter current layer's A
         """
+        Performs one pass of gradient descent on the neural network        Performs one pass of gradient descent on the neural network
+        """
+        m = Y.shape[1]
 
-        m = np.shape(Y)[1]
-        dz2 = A2 - Y
-        dw2 = np.dot(A1, dz2.T) / m
-        db2 = np.sum(dz2, axis=1, keepdims=True) / m
-        self.__W2 -= alpha * dw2.T
+        dZ2 = A2 - Y
+        dW2 = np.dot(dZ2, A1.T) / m
+        db2 = np.sum(dZ2, axis=1, keepdims=True) / m
+
+        dA1 = np.dot(self.__W2.T, dZ2)
+        dZ1 = dA1 * A1 * (1 - A1)
+        dW1 = np.dot(dZ1, X.T) / m
+        db1 = np.sum(dZ1, axis=1, keepdims=True) / m
+
+        self.__W1 -= alpha * dW1
+        self.__b1 -= alpha * db1
+        self.__W2 -= alpha * dW2
         self.__b2 -= alpha * db2
-
-        m = np.shape(Y)[1]
-        dz1 = np.dot(self.__W2.T, dz2) * (A1 * (1 - A1))
-        dw1 = np.dot(X, dz1.T) / m
-        db1 = np.sum(dz1, axis=1, keepdims=True) / m
-        self.__W1 -= alpha * dw1.T
-        self.__b1 -= alpha * db1    
