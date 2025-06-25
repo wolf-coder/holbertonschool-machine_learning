@@ -251,26 +251,26 @@ class NeuralNetwork():
         """
 
         m = X.shape[1]
+        # calculate the derivatives
 
-        # 1. Gradient of the loss with respect to the output layer's activations
+# 1. gradient of the loss with respect to the output layer's activations:
         dZ2 = A2 - Y
 
-        # 2. Gradient with respect to the weights and biases of the second layer
-        dW2 = np.dot(dZ2, A1.T) / m
-        db2 = np.sum(dZ2, axis=1, keepdims=True) / m
+# 2. gradient with respect to the weights and biases of the second layer:
+        dW2 = (dZ2 @ A1.T) / m
+        db2 = (np.sum(dZ2, axis=1, keepdims=True))/m
 
-        # 3. Gradient of the loss with respect to the first layer's activations
-        dA1 = np.dot(self.__W2.T, dZ2)
-        dZ1 = dA1 * A1 * (1 - A1)
+# 4. gradient of the loss with respect to the first layer's activations:
+        dZ1 = (self.W2.T @ dZ2) * (A1 * (1-A1))
 
-        # 4. Gradient with respect to the weights and biases of the first layer
-        dW1 = np.dot(dZ1, X.T) / m
-        db1 = np.sum(dZ1, axis=1, keepdims=True) / m
+# 5. gradient with respect to the weights and biases of the first layer:
+        dW1 = (dZ1 @ X.T) / m
+        db1 = (np.sum(dZ1, axis=1, keepdims=True))/m
 
-        # 5. Update the weights and biases for the first layer
-        self.__W1 -= alpha * dW1
-        self.__b1 -= alpha * db1
+# 3. Update the weights and biases of the second layer:
+        self.__W2 -= (alpha * dW2)
+        self.__b2 -= (alpha * db2)
 
-        # 6. Update the weights and biases for the second layer
-        self.__W2 -= alpha * dW2
-        self.__b2 -= alpha * db2
+        # 6. Update the weights and biases of the first layer:
+        self.__W1 -= (alpha * dW1)
+        self.__b1 -= (alpha * db1)
