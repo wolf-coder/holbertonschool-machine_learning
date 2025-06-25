@@ -268,10 +268,12 @@ class NeuralNetwork():
         dW1 = (dZ1 @ X.T) / m
         db1 = np.sum(dZ1, axis=1, keepdims=True) / m
 
-        # 5. Update the weights and biases for the second layer:
+        # 5. Update the weights and biases for the first layer:
+        self.__W1 -= (alpha * dW1)
+        self.__b1 -= (alpha * db1)
+
+        # 6. Update the weights and biases for the second layer:
         self.__W2 -= (alpha * dW2)
         self.__b2 -= (alpha * db2)
 
-        # 6. Update the weights and biases for the first layer:
-        self.__W1 -= (alpha * dW1)
-        self.__b1 -= (alpha * db1)
+
