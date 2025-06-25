@@ -113,48 +113,104 @@ class NeuralNetwork():
 
     def forward_prop(self, X):
         """
-    - Calculates the forward propagation of the neural network
-    - X is a numpy.ndarray with shape (nx, m) that contains the input data
-        - nx is the number of input features to the neuron
-        - m is the number of examples
-    - Updates the private attributes __A1 and __A2
-    - The neurons should use a sigmoid activation function
-    - Returns the private attributes __A1 and __A2, respectively
-        """
-        Z1 = (self.__W1 @ X) + self.__b1 # (node x m)
-        A1 = 1 / (1 + np.exp(- Z1))
-        self.__A1 = A1 # (node x m)
+        Calculates the forward propagation of the neural network.
 
+        Parameters
+        ----------
+        X : np.ndarray of shape (nx, m)
+            Input data where:
+            - nx is the number of input features.
+            - m is the number of examples.
+
+        Returns
+        -------
+        tuple
+            A tuple containing:
+            - A1 : np.ndarray of shape (nodes, m)
+                Activated output of the hidden layer.
+            - A2 : np.ndarray of shape (1, m)
+                Activated output of the output neuron (final predictions).
+
+        Notes
+        -----
+        This method updates the internal state:
+        - __A1 : stores the hidden layer activation.
+        - __A2 : stores the output neuron activation.
+        The activation function used in both layers is the sigmoid function.
+        """
+
+        # first layer work
+        Z1 = (self.__W1 @ X) + self.__b1
+        self.__A1 = 1 / (1 + np.exp(-Z1))
+
+        # second(=final) layer work
         Z2 = (self.__W2 @ self.__A1) + self.__b2
-        A2 = 1 / (1 + np.exp(- Z2))
-        self.__A2 = A2 
+        self.__A2 = 1 / (1 + np.exp(-Z2))
 
         return (self.__A1, self.__A2)
 
-    def cost(self, Y, A):
+    def cost(self, Y, A) -> int:
         """
-        - Calculates the cost of the model using logistic regression
-        - Y is a numpy.ndarray with shape (1, m) that contains the correct labels for the input data
-        - A is a numpy.ndarray with shape (1, m) containing the activated output of the neuron for each example
-        - To avoid division by zero errors, please use 1.0000001 - A instead of 1 - A
-        - Returns the cost
+            Calculates the cost of the model using logistic regression.
+
+            Parameters
+            ----------
+            Y : np.ndarray of shape (1, m)
+                Correct labels for the input data.
+
+            A : np.ndarray of shape (1, m)
+                Activated output of the neuron for each example.
+
+            Returns
+            -------
+            float
+                The logistic regression cost.
+
+            Notes
+            -----
+            To prevent division by zero in the logarithm,
+        a small value (epsilon) is added,
+        such that the expression becomes `1 + epsilon - A` instead of `1 - A`.
+            This ensures numerical stability during cost computation.
+        (as zero is not defined in log domain)
         """
-        SafeOne = 1.0000001 # to prevent log(0) as 0 is not defined for function log
-        m = Y.shape[1]
-        loss_row = (Y * np.log(A)) + ((1 - Y) * (np.log(SafeOne - A)))
-        cost = np.sum(loss_row) / (- m)
+        m = Y.shape[1]  # number of examples
+        epsilon = 1e-7
+
+        Loss_row = (Y * np.log(A)) + ((1-Y) * (np.log((1+epsilon) - A)))
+        cost = np.sum(Loss_row) / (-m)
         return cost
-        
 
     def evaluate(self, X, Y):
         """
-        Evaluate the neural network predictions
-        """
-        _, OutputA2 = NeuralNetwork.forward_prop(self, X)
-        predictions = np.where(OutputA2>=0.5,1,0)
-        cost = NeuralNetwork.cost(self,Y,OutputA2)
-        return (predictions, cost)
+        Evaluates the neural network’s predictions.
 
+        Parameters
+        ----------
+        X : np.ndarray of shape (nx, m)
+            Input data where:
+            - nx is the number of input features.
+            - m is the number of examples.
+
+        Y : np.ndarray of shape (1, m)
+            Correct labels for the input data.
+
+        Returns
+        -------
+        tuple
+            A tuple containing:
+            - predictions : np.ndarray of shape (1, m)
+                Binary predictions for each example.
+                Labels are 1 if the output activation >= 0.5, else 0.
+
+            - cost : float
+                The cost of the network's predictions.
+        """
+
+        self.forward_prop(X)  # (1, m) (self.__A2 gets updated)
+        cost = self.cost(Y, self.__A2)
+        prediction = np.where(self.__A2 >= 0.5, 1, 0)
+        return (prediction, cost)
 
     def gradient_descent(self, X, Y, A1, A2, alpha=0.05):
         """
