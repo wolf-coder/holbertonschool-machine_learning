@@ -339,6 +339,14 @@ class NeuralNetwork():
         __A2 : np.ndarray
             Activated output from the output neuron.
         """
+        if not isinstance(iterations, int):
+            raise TypeError("iterations must be an integer")
+        if iterations <= 0:
+            raise ValueError("iterations must be a positive integer")
+        if not isinstance(alpha, float):
+            raise TypeError("alpha must be a float")
+        if alpha <= 0:
+            raise ValueError("alpha must be positive")
         for _ in range(iterations):
             self.forward_prop(X)  # will update {__A1, __A2}
             self.gradient_descent(X, Y, self.__A1, self.__A2, alpha=alpha)
