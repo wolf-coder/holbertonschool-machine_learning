@@ -281,8 +281,65 @@ class NeuralNetwork():
 
     def train(self, X, Y, iterations=5000, alpha=0.05):
         """
+        Trains the neural network.
+
+        Parameters
+        ----------
+        X : np.ndarray of shape (nx, m)
+            Input data where:
+            - nx is the number of input features.
+            - m is the number of examples.
+
+        Y : np.ndarray of shape (1, m)
+            Correct labels for the input data.
+
+        iterations : int, optional
+            Number of iterations to train over (default is 5000).
+
+        alpha : float, optional
+            Learning rate (default is 0.05).
+
+        Returns
+        -------
+        tuple
+            A tuple containing:
+            - predictions : np.ndarray of shape (1, m)
+                Binary predictions for each example.
+            - cost : float
+                Cost of the network after training.
+
+        Raises
+        ------
+        TypeError
+            If `iterations` is not an integer.
+        ValueError
+            If `iterations` is not a positive integer.
+        TypeError
+            If `alpha` is not a float.
+        ValueError
+            If `alpha` is not positive.
+
+        Updates
+        -------
+        __W1 : np.ndarray
+            Weights of the hidden layer.
+
+        __b1 : np.ndarray
+            Biases of the hidden layer.
+
+        __A1 : np.ndarray
+            Activated output from the hidden layer.
+
+        __W2 : np.ndarray
+            Weights of the output layer.
+
+        __b2 : float
+            Bias of the output layer.
+
+        __A2 : np.ndarray
+            Activated output from the output neuron.
         """
         for _ in range(iterations):
-            self.forward_prop(X)
-            self.gradient_descent(X,Y,self.__A1,self.__A2,alpha=alpha)
-        return self.evaluate(X,Y)
+            self.forward_prop(X)  # will update {__A1, __A2}
+            self.gradient_descent(X, Y, self.__A1, self.__A2, alpha=alpha)
+        return self.evaluate(X, Y)  # returns tuple (predictions, cost)
